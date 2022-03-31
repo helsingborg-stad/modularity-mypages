@@ -2,8 +2,8 @@
 
 use ComponentLibrary\Init as ComponentLibraryInit;
 
-if (!function_exists('modularity_modularitymypages_render_blade_view')) {
-    function modularity_modularitymypages_render_blade_view($view, $data = [], $compress = true)
+if (!function_exists('modularity_mypages_render_blade_view')) {
+    function modularity_mypages_render_blade_view($view, $data = [], $compress = true)
     {
         $init = new ComponentLibraryInit([
             MODULARITY_MY_PAGES_MODULE_VIEW_PATH
