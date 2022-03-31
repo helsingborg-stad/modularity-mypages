@@ -1,11 +1,11 @@
 {
-  "name": "Modularity Boilerplate",
-  "description": "A boilerplate repo for modules.",
-  "slug": "boilerplate",
-  "slugcamelcase": "Boilerplate",
-  "namespace": "ModularityBoilerplate",
-  "capsConstant": "MODULARITY_BOILERPLATE",
-  "author": "Firstname Lastname @ Company",
-  "authoremail": "firstname.lastname@company.com",
-  "github": "githubname"
+  "name": "Modularity My Pages",
+  "description": "My pages modularity module.",
+  "slug": "modularity-mypages",
+  "slugcamelcase": "ModularityMyPages",
+  "namespace": "ModularityMyPages",
+  "capsConstant": "MODULARITY_MY_PAGES",
+  "author": "Sebastian Thulin",
+  "authoremail": "sebastian.thulin@helsingborg.se",
+  "github": "helsingborg-stad"
 }
