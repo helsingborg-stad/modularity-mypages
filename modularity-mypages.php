@@ -5,7 +5,7 @@
  * Plugin URI:        https://github.com/helsingborg-stad/modularity-modularitymypages
  * Description:       My pages modularity module.
  * Version:           1.0.0
- * Author:            Sebastian Thulin
+ * Author:            Sebastian Thulin, Petter Andersson, Björn Persson
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
@@ -37,18 +37,21 @@ $loader->addPrefix('ModularityMyPages', MODULARITY_MY_PAGES_PATH . 'source/php/'
 $loader->register();
 
 // Acf auto import and export
-$acfExportManager = new \AcfExportManager\AcfExportManager();
-$acfExportManager->setTextdomain('modularity-mypages');
-$acfExportManager->setExportFolder(MODULARITY_MY_PAGES_PATH . 'source/php/AcfFields/');
-$acfExportManager->autoExport(array(
-    'modularitymypages-module' => 'group_61ea7a87e8mmm', //Update with acf id here, module view
-    'modularitymypages-settings' => 'group_61ea7a87e8nnn' //Update with acf id here, settings view
-));
-$acfExportManager->import();
+add_action('acf/init', function () {
+    $acfExportManager = new \AcfExportManager\AcfExportManager();
+    $acfExportManager->setTextdomain('modularity-mypages');
+    $acfExportManager->setExportFolder(MODULARITY_MY_PAGES_PATH . 'source/php/AcfFields/');
+    $acfExportManager->autoExport(array(
+        'modularitymypages-module' => 'group_61ea7a87e8mmm', //Update with acf id here, module view
+        'modularitymypages-settings' => 'group_61ea7a87e8nnn' //Update with acf id here, settings view
+    ));
+    $acfExportManager->import();
+});
 
 // Modularity 3.0 ready - ViewPath for Component library
 add_filter('/Modularity/externalViewPath', function ($arr) {
     $arr['mod-mypages-profile'] = MODULARITY_MY_PAGES_MODULE_VIEW_PATH . '/Profile/views/';
+    $arr['mod-mypages-service'] = MODULARITY_MY_PAGES_MODULE_VIEW_PATH . '/Service/views/';
     return $arr;
 }, 1, 3);
 

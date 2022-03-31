@@ -1,6 +1,6 @@
 <?php
 
-namespace ModularityMyPages\Modules\Profile;
+namespace ModularityMyPages\Modules\Service;
 
 use ModularityMyPages\Helper\CacheBust;
 
@@ -8,16 +8,16 @@ use ModularityMyPages\Helper\CacheBust;
  * Class ModularityMyPages
  * @package ModularityMyPages\Module
  */
-class Profile extends \Modularity\Module
+class Service extends \Modularity\Module
 {
-    public $slug = 'mod-mypages-profile';
+    public $slug = 'mod-mypages-service';
     public $supports = array();
 
     public function init()
     {
-        $this->nameSingular = __("My Pages: Profile", 'modularity-mypages');
-        $this->namePlural = __("My Pages: Profiles", 'modularity-mypages');
-        $this->description = __("My pages modularity module, profile page.", 'modularity-mypages');
+        $this->nameSingular = __("My Pages: Service", 'modularity-mypages');
+        $this->namePlural = __("My Pages: Services", 'modularity-mypages');
+        $this->description = __("My pages modularity module - service.", 'modularity-mypages');
     }
 
     /**
@@ -36,31 +36,12 @@ class Profile extends \Modularity\Module
         //Translations
         $data['lang'] = (object) array(
             'info' => __(
-                "Hey! You can edit your profile details below.",
+                "Hey! This is a service placeholder.",
                 'modularity-mypages'
-            ),
-            'submit' => __('Save', 'modularity-mypages'),
-            'phone' => __('Phone', 'modularity-mypages'),
-            'email' => __('Email', 'modularity-mypages'),
+            )
         );
 
-        //User details
-        $data['user'] = (object) $this->getUserData();
-
         return $data;
-    }
-
-    /**
-     * Fake user data object
-     *
-     * @return array
-     */
-    private function getUserData(): array
-    {
-        return [
-            'email' => 'example@mail.com',
-            'phone' => '07012345678',
-        ];
     }
 
     /**

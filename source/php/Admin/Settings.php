@@ -18,7 +18,7 @@ class Settings
             acf_add_options_sub_page(array(
                 'page_title'  => __("Modularity My Pages", 'modularity-mypages'),
                 'menu_title'  => __("Modularity My Pages Settings", 'modularity-mypages'),
-                'menu_slug'   => 'modularity-modularitymypages-settings',
+                'menu_slug'   => 'modularity-mypages-settings',
                 'parent_slug' => 'options-general.php',
                 'capability'  => 'manage_options'
             ));
