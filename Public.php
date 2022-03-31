@@ -2,11 +2,11 @@
 
 use ComponentLibrary\Init as ComponentLibraryInit;
 
-if (!function_exists('modularity_{{BPREPLACESLUG}}_render_blade_view')) {
-    function modularity_{{BPREPLACESLUG}}_render_blade_view($view, $data = [], $compress = true)
+if (!function_exists('modularity_modularitymypages_render_blade_view')) {
+    function modularity_modularitymypages_render_blade_view($view, $data = [], $compress = true)
     {
         $init = new ComponentLibraryInit([
-            {{BPREPLACECAPSCONSTANT}}_MODULE_VIEW_PATH
+            MODULARITY_MY_PAGES_MODULE_VIEW_PATH
         ]);
 
         $bladeEngine = $init->getEngine();

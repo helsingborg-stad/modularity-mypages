@@ -1,18 +1,18 @@
 {
-  "name": "modularity-{{BPREPLACESLUG}}",
+  "name": "modularity-modularitymypages",
   "version": "1.0.0",
-  "description": "{{BPREPLACEDESCRIPTION}}",
+  "description": "My pages modularity module.",
   "main": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/{{BPREPLACEGITHUB}}/modularity-{{BPREPLACESLUG}}"
+    "url": "https://github.com/helsingborg-stad/modularity-modularitymypages"
   },
-  "author": "{{BPREPLACEAUTHOR}}",
+  "author": "Sebastian Thulin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/{{BPREPLACEGITHUB}}/modularity-{{BPREPLACESLUG}}/issues"
+    "url": "https://github.com/helsingborg-stad/modularity-modularitymypages/issues"
   },
-  "homepage": "https://github.com/{{BPREPLACEGITHUB}}/modularity-{{BPREPLACESLUG}}",
+  "homepage": "https://github.com/helsingborg-stad/modularity-modularitymypages",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "cross-env NODE_ENV=development webpack --watch",

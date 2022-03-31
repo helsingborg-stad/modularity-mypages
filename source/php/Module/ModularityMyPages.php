@@ -1,23 +1,23 @@
 <?php
 
-namespace {{BPREPLACENAMESPACE}}\Module;
+namespace ModularityMyPages\Module;
 
-use {{BPREPLACENAMESPACE}}\Helper\CacheBust;
+use ModularityMyPages\Helper\CacheBust;
 
 /**
- * Class {{BPREPLACESLUGCAMELCASE}}
- * @package {{BPREPLACESLUGCAMELCASE}}\Module
+ * Class ModularityMyPages
+ * @package ModularityMyPages\Module
  */
-class {{BPREPLACESLUGCAMELCASE}} extends \Modularity\Module
+class ModularityMyPages extends \Modularity\Module
 {
-    public $slug = '{{BPREPLACESLUG}}';
+    public $slug = 'modularitymypages';
     public $supports = array();
 
     public function init()
     {
-        $this->nameSingular = __("{{BPREPLACESLUGCAMELCASE}}", 'modularity-{{BPREPLACESLUG}}');
-        $this->namePlural = __("{{BPREPLACESLUGCAMELCASE}}", 'modularity-{{BPREPLACESLUG}}');
-        $this->description = __("{{BPREPLACEDESCRIPTION}}", 'modularity-{{BPREPLACESLUG}}');
+        $this->nameSingular = __("My Pages", 'modularity-mypages');
+        $this->namePlural = __("My Pages", 'modularity-mypages');
+        $this->description = __("My pages modularity module.", 'modularity-mypages');
     }
 
     /**
@@ -36,8 +36,8 @@ class {{BPREPLACESLUGCAMELCASE}} extends \Modularity\Module
         //Translations
         $data['lang'] = (object) array(
             'info' => __(
-                "Hey! This is your new {{BPREPLACENAME}} module. Let's get going.",
-                'modularity-{{BPREPLACESLUG}}'
+                "Hey! This is your new Modularity My Pages module. Let's get going.",
+                'modularity-mypages'
             )
         );
 
@@ -50,7 +50,7 @@ class {{BPREPLACESLUGCAMELCASE}} extends \Modularity\Module
      */
     public function template(): string
     {
-        return "{{BPREPLACESLUG}}.blade.php";
+        return "mypages.blade.php";
     }
 
     /**
@@ -61,14 +61,14 @@ class {{BPREPLACESLUGCAMELCASE}} extends \Modularity\Module
     {
         //Register custom css
         wp_register_style(
-            'modularity-{{BPREPLACESLUG}}',
-            {{BPREPLACECAPSCONSTANT}}_URL . '/dist/' . CacheBust::name('css/modularity-{{BPREPLACESLUG}}.css'),
+            'modularity-mypages',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages.css'),
             null,
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_style('modularity-{{BPREPLACESLUG}}');
+        wp_enqueue_style('modularity-mypages');
     }
 
     /**
@@ -79,14 +79,14 @@ class {{BPREPLACESLUGCAMELCASE}} extends \Modularity\Module
     {
         //Register custom css
         wp_register_script(
-            'modularity-{{BPREPLACESLUG}}',
-            {{BPREPLACECAPSCONSTANT}}_URL . '/dist/' . CacheBust::name('js/modularity-{{BPREPLACESLUG}}.js'),
+            'modularity-mypages',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages.js'),
             null,
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_script('modularity-{{BPREPLACESLUG}}');
+        wp_enqueue_script('modularity-mypages');
     }
 
     /**

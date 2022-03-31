@@ -1,8 +1,8 @@
 <?php
 
-namespace {{BPREPLACENAMESPACE}};
+namespace ModularityMyPages;
 
-use {{BPREPLACENAMESPACE}}\Helper\CacheBust;
+use ModularityMyPages\Helper\CacheBust;
 
 class App
 {
@@ -27,8 +27,8 @@ class App
     {
         if (function_exists('modularity_register_module')) {
             modularity_register_module(
-                {{BPREPLACECAPSCONSTANT}}_MODULE_PATH,
-                '{{BPREPLACESLUGCAMELCASE}}'
+                MODULARITY_MY_PAGES_MODULE_PATH,
+                'ModularityMyPages'
             );
         }
     }
@@ -42,10 +42,10 @@ class App
     {
         // If child theme is active, insert plugin view path after child views path.
         if (is_child_theme()) {
-            array_splice($array, 2, 0, array({{BPREPLACECAPSCONSTANT}}_VIEW_PATH));
+            array_splice($array, 2, 0, array(MODULARITY_MY_PAGES_VIEW_PATH));
         } else {
             // Add view path first in the list if child theme is not active.
-            array_unshift($array, {{BPREPLACECAPSCONSTANT}}_VIEW_PATH);
+            array_unshift($array, MODULARITY_MY_PAGES_VIEW_PATH);
         }
 
         return $array;
