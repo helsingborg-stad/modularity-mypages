@@ -1,6 +1,6 @@
 <?php
 
-namespace ModularityMyPages\Module;
+namespace ModularityMyPages\Modules\Profile;
 
 use ModularityMyPages\Helper\CacheBust;
 
@@ -8,16 +8,16 @@ use ModularityMyPages\Helper\CacheBust;
  * Class ModularityMyPages
  * @package ModularityMyPages\Module
  */
-class ModularityMyPages extends \Modularity\Module
+class Profile extends \Modularity\Module
 {
-    public $slug = 'modularitymypages';
+    public $slug = 'mod-mypages-profile';
     public $supports = array();
 
     public function init()
     {
-        $this->nameSingular = __("My Pages", 'modularity-mypages');
-        $this->namePlural = __("My Pages", 'modularity-mypages');
-        $this->description = __("My pages modularity module.", 'modularity-mypages');
+        $this->nameSingular = __("My Pages: Profile", 'modularity-mypages');
+        $this->namePlural = __("My Pages: Profiles", 'modularity-mypages');
+        $this->description = __("My pages modularity module, profile page.", 'modularity-mypages');
     }
 
     /**
@@ -36,12 +36,30 @@ class ModularityMyPages extends \Modularity\Module
         //Translations
         $data['lang'] = (object) array(
             'info' => __(
-                "Hey! This is your new Modularity My Pages module. Let's get going.",
+                "Hey! You can edit your profile details below.",
                 'modularity-mypages'
-            )
+            ),
+            'submit' => __('Save', 'modularity-mypages'),
+            'phone' => __('Phone', 'modularity-mypages'),
+            'email' => __('Email', 'modularity-mypages'),
         );
 
+        $data['user'] = (object) $this->getUserData();
+
         return $data;
+    }
+
+    /**
+     * Fake user data object
+     *
+     * @return array
+     */
+    private function getUserData(): array
+    {
+        return [
+            'email' => 'example@mail.com',
+            'phone' => '07012345678',
+        ];
     }
 
     /**
@@ -50,7 +68,7 @@ class ModularityMyPages extends \Modularity\Module
      */
     public function template(): string
     {
-        return "mypages.blade.php";
+        return "profile.blade.php";
     }
 
     /**

@@ -22,8 +22,8 @@ define('MODULARITY_MY_PAGES_PATH', plugin_dir_path(__FILE__));
 define('MODULARITY_MY_PAGES_URL', plugins_url('', __FILE__));
 define('MODULARITY_MY_PAGES_TEMPLATE_PATH', MODULARITY_MY_PAGES_PATH . 'templates/');
 define('MODULARITY_MY_PAGES_VIEW_PATH', MODULARITY_MY_PAGES_PATH . 'views/');
-define('MODULARITY_MY_PAGES_MODULE_VIEW_PATH', plugin_dir_path(__FILE__) . 'source/php/Module/views');
-define('MODULARITY_MY_PAGES_MODULE_PATH', MODULARITY_MY_PAGES_PATH . 'source/php/Module/');
+define('MODULARITY_MY_PAGES_MODULE_VIEW_PATH', plugin_dir_path(__FILE__) . 'source/php/Modules');
+define('MODULARITY_MY_PAGES_MODULE_PATH', MODULARITY_MY_PAGES_PATH . 'source/php/Modules/');
 
 load_plugin_textdomain('modularity-mypages', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
@@ -48,7 +48,7 @@ $acfExportManager->import();
 
 // Modularity 3.0 ready - ViewPath for Component library
 add_filter('/Modularity/externalViewPath', function ($arr) {
-    $arr['mod-modularitymypage'] = MODULARITY_MY_PAGES_MODULE_VIEW_PATH;
+    $arr['mod-mypages-profile'] = MODULARITY_MY_PAGES_MODULE_VIEW_PATH . '/Profile/views/';
     return $arr;
 }, 1, 3);
 
