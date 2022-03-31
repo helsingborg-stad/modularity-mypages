@@ -26,7 +26,7 @@ class App
     public function registerModule()
     {
         if (function_exists('modularity_register_module')) {
-            foreach (['Profile'] as $module) {
+            foreach (['Profile', 'Service'] as $module) {
                 modularity_register_module(
                     MODULARITY_MY_PAGES_MODULE_PATH . "/" . $module,
                     $module
