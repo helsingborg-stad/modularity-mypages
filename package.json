@@ -1,18 +1,18 @@
 {
-  "name": "modularity-modularitymypages",
+  "name": "helsingborg-stad/modularity-mypages",
   "version": "1.0.0",
-  "description": "My pages modularity module.",
+  "description": "My pages modularity modules and login action.",
   "main": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/helsingborg-stad/modularity-modularitymypages"
+    "url": "https://github.com/helsingborg-stad/modularity-mypages"
   },
   "author": "Sebastian Thulin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/helsingborg-stad/modularity-modularitymypages/issues"
+    "url": "https://github.com/helsingborg-stad/modularity-mypages/issues"
   },
-  "homepage": "https://github.com/helsingborg-stad/modularity-modularitymypages",
+  "homepage": "https://github.com/helsingborg-stad/modularity-mypages",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "cross-env NODE_ENV=development webpack --watch",
