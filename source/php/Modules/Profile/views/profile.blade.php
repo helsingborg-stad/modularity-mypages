@@ -1,7 +1,7 @@
 @if (!$hideTitle)
     @typography([
         'element' => "h2",
-        'classList' => ['u-margin--0']
+        'classList' => ['u-margin__top--0', 'u-margin__bottom--2']
     ])
         {{ $postTitle }}
     @endtypography
@@ -9,23 +9,25 @@
 
 @paper(['padding' => 3])
 
-    <div class="o-grid">
-        <div class="o-grid-12">
-            @notice([
-                'type' => 'info',
-                'message' => [
-                    'text' => $lang->info,
-                    'size' => 'sm'
-                ],
-                'icon' => [
-                    'name' => 'report',
-                    'size' => 'md',
-                    'color' => 'white'
-                ]
-            ])
-            @endnotice
+    @if(isset($_GET['submit']))
+        <div class="o-grid">
+            <div class="o-grid-12">
+                @notice([
+                    'type' => 'success',
+                    'message' => [
+                        'text' => $lang->info,
+                        'size' => 'sm'
+                    ],
+                    'icon' => [
+                        'name' => 'report',
+                        'size' => 'md',
+                        'color' => 'white'
+                    ]
+                ])
+                @endnotice
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="o-grid">
         <div class="o-grid-12">
@@ -73,7 +75,8 @@
                             'text' => $lang->submit,
                             'color' => 'primary',
                             'style' => 'filled',
-                            'attributeList' => ['type' => 'submit']
+                            'attributeList' => ['type' => 'submit'],
+                            'href' => '/mina-sidor/?submit=true'
                         ])
                         @endbutton
                     </div>

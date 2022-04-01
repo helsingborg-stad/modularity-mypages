@@ -1,6 +1,6 @@
 <?php
 
-namespace ModularityMyPages\Modules\Profile;
+namespace ModularityMyPages\Modules\Tasks;
 
 use ModularityMyPages\Helper\CacheBust;
 
@@ -8,16 +8,16 @@ use ModularityMyPages\Helper\CacheBust;
  * Class ModularityMyPages
  * @package ModularityMyPages\Module
  */
-class Profile extends \Modularity\Module
+class Tasks extends \Modularity\Module
 {
-    public $slug = 'mod-mypages-profile';
+    public $slug = 'mod-mypages-tasks';
     public $supports = array();
 
     public function init()
     {
-        $this->nameSingular = __("My Pages: Profile", 'modularity-mypages');
-        $this->namePlural = __("My Pages: Profiles", 'modularity-mypages');
-        $this->description = __("My pages modularity module, profile page.", 'modularity-mypages');
+        $this->nameSingular = __("My Pages: Tasks", 'modularity-mypages');
+        $this->namePlural = __("My Pages: Tasks", 'modularity-mypages');
+        $this->description = __("My pages modularity module, task.", 'modularity-mypages');
     }
 
     /**
@@ -36,31 +36,12 @@ class Profile extends \Modularity\Module
         //Translations
         $data['lang'] = (object) array(
             'info' => __(
-                "Account setting saved.",
+                "Hey! This is your todo list.",
                 'modularity-mypages'
-            ),
-            'submit' => __('Save', 'modularity-mypages'),
-            'phone' => __('Phone', 'modularity-mypages'),
-            'email' => __('Email', 'modularity-mypages'),
+            )
         );
 
-        //User details
-        $data['user'] = (object) $this->getUserData();
-
         return $data;
-    }
-
-    /**
-     * Fake user data object
-     *
-     * @return array
-     */
-    private function getUserData(): array
-    {
-        return [
-            'email' => 'example@mail.com',
-            'phone' => '07012345678',
-        ];
     }
 
     /**
@@ -69,7 +50,7 @@ class Profile extends \Modularity\Module
      */
     public function template(): string
     {
-        return "profile.blade.php";
+        return "tasks.blade.php";
     }
 
     /**
@@ -80,14 +61,14 @@ class Profile extends \Modularity\Module
     {
         //Register custom css
         wp_register_style(
-            'modularity-mypages-profile',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages-profile.css'),
+            'modularity-mypages-tasks',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages-tasks.css'),
             null,
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_style('modularity-mypages');
+        wp_enqueue_style('modularity-mypages-tasks');
     }
 
     /**
@@ -98,14 +79,14 @@ class Profile extends \Modularity\Module
     {
         //Register custom css
         wp_register_script(
-            'modularity-mypages-profile',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages-profile.js'),
+            'modularity-mypages-tasks',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages-tasks.js'),
             null,
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_script('modularity-mypages-profile');
+        wp_enqueue_script('modularity-mypages-tasks');
     }
 
     /**

@@ -1,7 +1,7 @@
 @if (!$hideTitle)
     @typography([
         'element' => "h2",
-        'classList' => ['u-margin--0']
+        'classList' => ['u-margin__top--0', 'u-margin__bottom--2']
     ])
         {{ $postTitle }}
     @endtypography

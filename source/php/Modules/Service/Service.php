@@ -36,7 +36,7 @@ class Service extends \Modularity\Module
         //Translations
         $data['lang'] = (object) array(
             'info' => __(
-                "Hey! This is a service placeholder.",
+                "This is a service placeholder.",
                 'modularity-mypages'
             )
         );
@@ -50,7 +50,7 @@ class Service extends \Modularity\Module
      */
     public function template(): string
     {
-        return "profile.blade.php";
+        return "service.blade.php";
     }
 
     /**
@@ -61,14 +61,14 @@ class Service extends \Modularity\Module
     {
         //Register custom css
         wp_register_style(
-            'modularity-mypages',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages.css'),
+            'modularity-mypages-service',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages-service.css'),
             null,
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_style('modularity-mypages');
+        wp_enqueue_style('modularity-mypages-service');
     }
 
     /**
@@ -79,14 +79,14 @@ class Service extends \Modularity\Module
     {
         //Register custom css
         wp_register_script(
-            'modularity-mypages',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages.js'),
+            'modularity-mypages-service',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages-service.js'),
             null,
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_script('modularity-mypages');
+        wp_enqueue_script('modularity-mypages-service');
     }
 
     /**
