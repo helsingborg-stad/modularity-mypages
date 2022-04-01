@@ -1,12 +1,20 @@
 {
-    "name": "helsingborg-stad/modularity-modularitymypages",
-    "description": "My pages modularity module.",
+    "name": "helsingborg-stad/modularity-mypages",
+    "description": "My pages modularity modules and login action.",
     "type": "wordpress-plugin",
     "license": "MIT",
     "authors": [
         {
             "name": "Sebastian Thulin",
             "email": "sebastian.thulin@helsingborg.se"
+        },
+        {
+            "name": "Petter Andersson",
+            "email": "petter.andersson2@helsingborg.se"
+        },
+        {
+            "name": "Björn Persson",
+            "email": "bjorn.persson@helsingborg.se"
         }
     ],
     "minimum-stability": "stable",
@@ -14,7 +22,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/helsingborg-stad/modularity-modularitymypages.git"
+            "url": "https://github.com/helsingborg-stad/modularity-mypages.git"
         }
     ]
 }
