@@ -98,6 +98,11 @@ class Profile extends \Modularity\Module
      */
     public function script()
     {
+        //Check if module exists, before enqueue
+        if (!$this->hasModule()) {
+            return;
+        }
+
         //Register custom css
         wp_register_script(
             'modularity-mypages-profile',
