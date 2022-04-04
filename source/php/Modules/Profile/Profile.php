@@ -89,7 +89,7 @@ class Profile extends \Modularity\Module
         );
 
         //Enqueue
-        wp_enqueue_style('modularity-mypages');
+        wp_enqueue_style('modularity-mypages-profile');
     }
 
     /**

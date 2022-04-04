@@ -18,8 +18,8 @@ module.exports = {
     entry: {
         'css/modularity-mypages': './source/sass/modularity-mypages.scss',
 
-        'js/modularity-mypages-login': './source/js/main.js',
-        
+        'js/modularity-mypages': './source/js/main.js',
+
         'js/modularity-mypages-profile': './source/js/modules/profile.js',
         'js/modularity-mypages-tasks': './source/js/modules/tasks.js',
         'js/modularity-mypages-service': './source/js/modules/service.js',
