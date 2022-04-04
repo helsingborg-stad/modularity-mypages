@@ -102,7 +102,7 @@ class Profile extends \Modularity\Module
         wp_register_script(
             'modularity-mypages-profile',
             MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-profile.js'),
-            null,
+            ['modularity-mypages'],
             '1.0.0'
         );
 
