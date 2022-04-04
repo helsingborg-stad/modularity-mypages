@@ -18,11 +18,11 @@ module.exports = {
     entry: {
         'css/modularity-mypages': './source/sass/modularity-mypages.scss',
 
-        'js/modularity-mypages': './source/js/main.js',
+        'js/modularity-mypages': './source/js/main.ts',
 
-        'js/modularity-mypages-profile': './source/js/modules/profile.js',
-        'js/modularity-mypages-tasks': './source/js/modules/tasks.js',
-        'js/modularity-mypages-service': './source/js/modules/service.js',
+        'js/modularity-mypages-profile': './source/js/modules/profile.ts',
+        'js/modularity-mypages-tasks': './source/js/modules/tasks.ts',
+        'js/modularity-mypages-service': './source/js/modules/service.ts',
     },
     
     /**
@@ -65,10 +65,18 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {}
                     },
-                    'import-glob-loader'
+                    'import-glob-loader',
                 ],
             },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
         ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: removeEmpty([
         /**
