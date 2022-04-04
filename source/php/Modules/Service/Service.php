@@ -59,6 +59,8 @@ class Service extends \Modularity\Module
      */
     public function style()
     {
+        return; // Deactivate style
+
         //Register custom css
         wp_register_style(
             'modularity-mypages-service',
