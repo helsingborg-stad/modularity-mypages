@@ -81,7 +81,7 @@ class Profile extends \Modularity\Module
         //Register custom css
         wp_register_style(
             'modularity-mypages-profile',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages-profile.css'),
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-mypages-profile.css'),
             null,
             '1.0.0'
         );
@@ -99,7 +99,7 @@ class Profile extends \Modularity\Module
         //Register custom css
         wp_register_script(
             'modularity-mypages-profile',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages-profile.js'),
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-profile.js'),
             null,
             '1.0.0'
         );

@@ -62,7 +62,7 @@ class Tasks extends \Modularity\Module
         //Register custom css
         wp_register_style(
             'modularity-mypages-tasks',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages-tasks.css'),
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-mypages-tasks.css'),
             null,
             '1.0.0'
         );
@@ -80,7 +80,7 @@ class Tasks extends \Modularity\Module
         //Register custom css
         wp_register_script(
             'modularity-mypages-tasks',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages-tasks.js'),
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-tasks.js'),
             null,
             '1.0.0'
         );
