@@ -17,6 +17,48 @@ class App
 
         // Add view paths
         add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 1, 1);
+
+        // Load global scripts / styles
+        add_action('wp_enqueue_scripts', array($this, 'script'));
+        add_action('wp_enqueue_scripts', array($this, 'style'));
+    }
+
+    /**
+     * Style - Register & adding css
+     * @return void
+     */
+    public function style()
+    {
+        return; // Deactivate style
+
+        //Register custom css
+        wp_register_style(
+            'modularity-mypages',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-mypages.css'),
+            null,
+            '1.0.0'
+        );
+
+        //Enqueue
+        wp_enqueue_style('modularity-mypages');
+    }
+
+    /**
+     * Script - Register & adding scripts
+     * @return void
+     */
+    public function script()
+    {
+        //Register custom css
+        wp_register_script(
+            'modularity-mypages',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages.js'),
+            null,
+            '1.0.0'
+        );
+
+        //Enqueue
+        wp_enqueue_script('modularity-mypages');
     }
 
     /**
