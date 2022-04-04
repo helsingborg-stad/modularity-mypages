@@ -16,8 +16,8 @@ module.exports = {
      * Add your entry files here
      */
     entry: {
-        'css/modularity-modularitymypages':               './source/sass/modularity-modularitymypages.scss',
-        'js/modularity-modularitymypages':                './source/js/modularity-modularitymypages.js',
+        'css/modularity-modularitymypages': './source/sass/modularity-modularitymypages.scss',
+        'js/modularity-modularitymypages-profile': './source/js/profile.js',
     },
     
     /**
