@@ -20,6 +20,7 @@
 
     @select([
         'label' => 'Välj inloggningsmetod',
+        'id' => 'auth-method-select',
         'required' => true,
         'preselected' => 'mbid',
         'options' => [
@@ -45,7 +46,7 @@
             'text' => 'Gå vidare',
             'color' => 'primary',
             'style' => 'filled',
-            'href' => '/mina-sidor/?authenticated=true',
+            'id' => 'auth-continue',
             'classList' => ['u-float--right']
         ])
         @endbutton
