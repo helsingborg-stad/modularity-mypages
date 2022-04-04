@@ -62,7 +62,7 @@ class Service extends \Modularity\Module
         //Register custom css
         wp_register_style(
             'modularity-mypages-service',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-modularitymypages-service.css'),
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-mypages-service.css'),
             null,
             '1.0.0'
         );
@@ -80,7 +80,7 @@ class Service extends \Modularity\Module
         //Register custom css
         wp_register_script(
             'modularity-mypages-service',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-modularitymypages-service.js'),
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-service.js'),
             null,
             '1.0.0'
         );
