@@ -83,7 +83,7 @@ class Tasks extends \Modularity\Module
         wp_register_script(
             'modularity-mypages-tasks',
             MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-tasks.js'),
-            null,
+            ['modularity-mypages'],
             '1.0.0'
         );
 

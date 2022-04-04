@@ -83,7 +83,7 @@ class Service extends \Modularity\Module
         wp_register_script(
             'modularity-mypages-service',
             MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-service.js'),
-            null,
+            ['modularity-mypages'],
             '1.0.0'
         );
 
