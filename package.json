@@ -26,6 +26,7 @@
     "not dead"
   ],
   "devDependencies": {
+    "@types/qrcode": "^1.4.2",
     "autoprefixer": "^10.4.2",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
@@ -64,5 +65,8 @@
     "plugins": [
       "@babel/plugin-proposal-class-properties"
     ]
+  },
+  "dependencies": {
+    "qrcode": "^1.5.0"
   }
 }
