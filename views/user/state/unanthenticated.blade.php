@@ -18,24 +18,7 @@
 ])
     <p>Här kan du logga in på mina sidor. Det här är en POC som påvisar hur ett inloggningsförfarande kan fungera på webben.</p>
 
-    <div id="status"></div>
-
-    @select([
-        'label' => 'Välj inloggningsmetod',
-        'id' => 'auth-method-select',
-        'required' => true,
-        'preselected' => 'mbid',
-        'options' => [
-            'mbid'  => 'Mobilt BankID',
-            'cbid'  => 'BankID på datorn'
-        ],
-        'classList' => ['u-margin__top--4', 'u-margin__bottom--2']
-    ])
-    @endselect
-
-    <div id="open-bankid"></div>
-
-    <div id="qr-container"></div>
+    <div id="login-app"></div>
 
     <!-- Broken stuff in modal. Needs fix. -->
     <style>
@@ -49,11 +32,11 @@
 
     @slot('bottom')
         @button([
-            'text' => 'Gå vidare',
-            'color' => 'primary',
-            'style' => 'filled',
+            'text' => 'Stäng',
+            'color' => 'default',
+            'style' => 'outlined',
             'id' => 'auth-continue',
-            'classList' => ['u-float--right']
+            'classList' => ['u-float--left']
         ])
         @endbutton
     @endslot

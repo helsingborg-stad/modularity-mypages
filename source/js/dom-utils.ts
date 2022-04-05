@@ -1,5 +1,5 @@
-export const renderElement = (node: Node, locationSelector: string) => {
-  const location = document.querySelector(locationSelector);
+export const renderElement = (node: Node, locationRef: string | Node) => {
+  const location = typeof locationRef === 'string' ? document.querySelector(locationRef) : locationRef;
 
   if (!location) {
     return;

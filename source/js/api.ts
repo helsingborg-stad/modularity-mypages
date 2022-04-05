@@ -9,7 +9,13 @@ interface CollectRequestBody {
   orderRef: string;
 }
 
+const defaultHeaders = {
+  'x-api-key': apiKey,
+  'user-agent': 'MittHelsingborg',
+};
+
 export const getClientIp = () => {
+  //TODO: Get user IP somehow
   return Promise.resolve('127.0.0.0');
 };
 
@@ -17,10 +23,7 @@ export const auth = (authRequestBody: AuthRequestBody) => {
   return fetch(`${baseURL}auth/bankid/auth`, {
     method: 'POST',
     body: JSON.stringify(authRequestBody),
-    headers: new Headers({
-      'x-api-key': apiKey,
-      'user-agent': 'MittHelsingborg/1.1.4/ios/15.2',
-    }),
+    headers: new Headers(defaultHeaders),
   })
     .then((response) => response.json())
     .then((response) => {
@@ -32,13 +35,10 @@ export const collect = (collectRequestBody: CollectRequestBody) => {
   return fetch(`${baseURL}auth/bankid/collect`, {
     method: 'POST',
     body: JSON.stringify(collectRequestBody),
-    headers: new Headers({
-      'x-api-key': apiKey,
-      'User-Agent': 'MittHelsingborg/1.1.4/ios/15.2',
-    }),
+    headers: new Headers(defaultHeaders),
   })
     .then((response) => response.json())
     .then((response) => {
-      return response;
+      return response.data.attributes;
     });
 };

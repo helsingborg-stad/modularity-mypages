@@ -1,79 +1,37 @@
-import qrcode from 'qrcode';
-import { auth, collect, getClientIp } from './api';
+import { AuthenticateBankIdOtherDevice } from './components/AuthenticateBankIdOtherDevice';
+import { AuthenticateBankIdThisDevice } from './components/AuthenticateBankIdThisDevice';
+import { AuthMenu } from './components/AuthMenu';
 import { renderElement } from './dom-utils';
 
-const main = () => {
-  const getSelectedAuthMethod = () => {
-    return document.querySelector<HTMLInputElement>('#auth-method-select select')?.value;
+export enum AuthMethods {
+  BANKID_OTHER_DEVICE,
+  BANKID_THIS_DEVICE,
+}
+
+const App = () => {
+  const rootComponent = document.createElement('div');
+  const actions = {
+    onNavigate: function (value: AuthMethods) {
+      switch (value) {
+        case AuthMethods.BANKID_THIS_DEVICE:
+          const authenticateBankIdThisDevice = AuthenticateBankIdThisDevice(this.loadInitialState.bind(actions));
+          renderElement(authenticateBankIdThisDevice, rootComponent);
+          break;
+        case AuthMethods.BANKID_OTHER_DEVICE:
+          const authenticateBankIdOtherDevice = AuthenticateBankIdOtherDevice(this.loadInitialState.bind(actions));
+          renderElement(authenticateBankIdOtherDevice, rootComponent);
+          break;
+      }
+    },
+    loadInitialState: function () {
+      const authMenuComponent = AuthMenu(this.onNavigate.bind(actions));
+      renderElement(authMenuComponent, rootComponent);
+    },
   };
 
-  const renderAuthQR = (code: string) => {
-    const canvas = document.createElement('canvas');
-    qrcode.toCanvas(canvas, code);
-    renderElement(canvas, '#qr-container');
-  };
+  actions.loadInitialState();
 
-  const renderStatus = (status: string) => {
-    const p = document.createElement('p');
-    p.innerHTML = status;
-    renderElement(p, '#status');
-  };
-
-  const checkSomething = (orderRef: string) => {
-    return new Promise<void>((resolve, reject) => {
-      let interval: NodeJS.Timer;
-      interval = setInterval(async () => {
-        try {
-          const response = await collect({ orderRef });
-          const status = response.data.attributes.status;
-          const qr = response.data.attributes.authCode;
-          const hintCode = response.data.attributes.hintCode;
-
-          if (hintCode !== 'userSign') {
-            renderAuthQR(qr);
-          } else {
-            renderAuthQR('');
-          }
-
-          renderStatus(status);
-          if (status === 'complete') {
-            clearInterval(interval);
-            resolve();
-          }
-        } catch {
-          renderAuthQR('');
-          clearInterval(interval);
-          renderStatus('Something went wrong :(');
-          reject();
-        }
-      }, 2000);
-    });
-  };
-
-  const onAuthContinue = async () => {
-    const value = getSelectedAuthMethod();
-    if (value === 'mbid') {
-      renderStatus('Starting...');
-      const endUserIp = await getClientIp();
-      const { orderRef, autoStartToken } = await auth({ endUserIp });
-
-      const button = document.createElement('a');
-      button.setAttribute('href', `bankid:///?autostarttoken=${autoStartToken}&redirect=`);
-      button.innerHTML = 'Öppna bankid på denna enheten';
-
-      renderElement(button, '#open-bankid');
-
-      await checkSomething(orderRef);
-
-      window.location.href = '/mina-sidor/?authenticated=true';
-    }
-  };
-
-  const registerEventListners = () => {
-    document.querySelector('#auth-continue')?.addEventListener('click', onAuthContinue);
-  };
-
-  registerEventListners();
+  return rootComponent;
 };
 
-main();
+renderElement(App(), '#login-app');
