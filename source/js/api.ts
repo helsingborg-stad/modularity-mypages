@@ -9,6 +9,10 @@ interface CollectRequestBody {
   orderRef: string;
 }
 
+interface CancelRequestBody {
+  orderRef: string;
+}
+
 const defaultHeaders = {
   'x-api-key': apiKey,
   'user-agent': 'MittHelsingborg',
@@ -35,6 +39,18 @@ export const collect = (collectRequestBody: CollectRequestBody) => {
   return fetch(`${baseURL}auth/bankid/collect`, {
     method: 'POST',
     body: JSON.stringify(collectRequestBody),
+    headers: new Headers(defaultHeaders),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response.data.attributes;
+    });
+};
+
+export const cancel = (cancelRequestBody: CancelRequestBody) => {
+  return fetch(`${baseURL}auth/bankid/cancel`, {
+    method: 'POST',
+    body: JSON.stringify(cancelRequestBody),
     headers: new Headers(defaultHeaders),
   })
     .then((response) => response.json())

@@ -1,8 +1,8 @@
 import qrcode from 'qrcode';
-import { auth, collect, getClientIp } from '../api';
+import { auth, cancel, collect, getClientIp } from '../api';
 import { SecondaryButton } from './SecondaryButton';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
-import { renderElement } from '../dom-utils';
+import { renderElement } from '../utils';
 
 export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
   const component = document.createElement('div');
@@ -31,7 +31,8 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
     .then((endUserIp) => auth({ endUserIp }))
     .then(({ orderRef }) => {
       abortButtonComponent.addEventListener('click', () => {
-        // Cancel request with orderRef
+        cancel({ orderRef });
+        return Promise.reject();
       });
       statusElement.textContent = 'Väntar...';
       return orderRef;

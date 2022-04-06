@@ -1,4 +1,4 @@
-import { auth, collect, getClientIp } from '../api';
+import { auth, cancel, collect, getClientIp } from '../api';
 import { SecondaryButton } from './SecondaryButton';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
 
@@ -15,7 +15,8 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
     .then((endUserIp) => auth({ endUserIp }))
     .then(({ autoStartToken, orderRef }) => {
       abortButtonComponent.addEventListener('click', () => {
-        // Cancel request with orderRef
+        cancel({ orderRef });
+        return Promise.reject();
       });
       window.location.replace(`bankid:///?autostarttoken=${autoStartToken}&redirect=null`);
       statusElement.textContent = 'Försöker starta bankid...';

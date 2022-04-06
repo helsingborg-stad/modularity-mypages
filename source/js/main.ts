@@ -1,7 +1,7 @@
 import { AuthenticateBankIdOtherDevice } from './components/AuthenticateBankIdOtherDevice';
 import { AuthenticateBankIdThisDevice } from './components/AuthenticateBankIdThisDevice';
-import { AuthMenu } from './components/AuthMenu';
-import { renderElement } from './dom-utils';
+import { AuthenticationMenu } from './components/AuthenticationMenu';
+import { renderElement } from './utils';
 
 export enum AuthMethods {
   BANKID_OTHER_DEVICE,
@@ -24,7 +24,7 @@ const App = () => {
       }
     },
     loadInitialState: function () {
-      const authMenuComponent = AuthMenu(this.onNavigate.bind(actions));
+      const authMenuComponent = AuthenticationMenu(this.onNavigate.bind(actions));
       renderElement(authMenuComponent, rootComponent);
     },
   };

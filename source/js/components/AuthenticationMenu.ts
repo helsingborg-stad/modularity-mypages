@@ -2,7 +2,7 @@ import { AuthMethods } from '../main';
 import { SecondaryButton } from './SecondaryButton';
 import { PrimaryButton } from './PrimaryButton';
 
-export const AuthMenu = (onSelect: Function) => {
+export const AuthenticationMenu = (onSelect: Function) => {
   const component = document.createElement('div');
   const primaryAuthButton = PrimaryButton('Logga in med mobilt BankID', () =>
     onSelect(AuthMethods.BANKID_OTHER_DEVICE),

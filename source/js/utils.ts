@@ -13,3 +13,6 @@ export const renderElement = (node: Node, locationRef: string | Node) => {
     location.appendChild(node);
   }
 };
+
+export const isMobileDevice = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
