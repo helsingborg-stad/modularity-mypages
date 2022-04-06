@@ -8,6 +8,8 @@ namespace ModularityMyPages;
  */
 class ProtectedPages
 {
+    private $authenticationCookieName = 'myPagesAuthenticated';
+
     public function __construct()
     {
         add_action('template_redirect', array($this, 'templateRedirect'));
@@ -45,11 +47,24 @@ class ProtectedPages
      *
      * @return boolean
      */
-    public function isAuthenticated(): bool
+    private function isAuthenticated(): bool
     {
-        if (isset($_COOKIE['myPagesAuthenticated'])) {
-            return true;
+        if (isset($_COOKIE[$this->authenticationCookieName])) {
+            return $this->authTokenIsValid(
+                $_COOKIE[$this->authenticationCookieName]
+            );
         }
         return false;
+    }
+
+    /**
+     * Validate auth token string
+     *
+     * @param string $token
+     * @return boolean
+     */
+    private function authTokenIsValid(string $token): bool
+    {
+        return true;
     }
 }
