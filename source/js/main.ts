@@ -3,7 +3,7 @@ import { AuthenticateBankIdThisDevice } from './components/AuthenticateBankIdThi
 import { AuthenticationMenu } from './components/AuthenticationMenu';
 import { renderElement } from './utils';
 
-export enum AuthMethods {
+export enum AuthenticationMethods {
   BANKID_OTHER_DEVICE,
   BANKID_THIS_DEVICE,
 }
@@ -11,13 +11,13 @@ export enum AuthMethods {
 const App = () => {
   const rootComponent = document.createElement('div');
   const actions = {
-    onNavigate: function (value: AuthMethods) {
+    onNavigate: function (value: AuthenticationMethods) {
       switch (value) {
-        case AuthMethods.BANKID_THIS_DEVICE:
+        case AuthenticationMethods.BANKID_THIS_DEVICE:
           const authenticateBankIdThisDevice = AuthenticateBankIdThisDevice(this.loadInitialState.bind(actions));
           renderElement(authenticateBankIdThisDevice, rootComponent);
           break;
-        case AuthMethods.BANKID_OTHER_DEVICE:
+        case AuthenticationMethods.BANKID_OTHER_DEVICE:
           const authenticateBankIdOtherDevice = AuthenticateBankIdOtherDevice(this.loadInitialState.bind(actions));
           renderElement(authenticateBankIdOtherDevice, rootComponent);
           break;
