@@ -9,8 +9,11 @@ class App
     public function __construct()
     {
 
-        //Init subset
+        //Init admin 
         new Admin\Settings();
+
+        //Init frontend
+        new ProtectedPages();
 
         //Register module
         add_action('plugins_loaded', array($this, 'registerModule'));

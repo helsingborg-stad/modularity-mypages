@@ -37,16 +37,14 @@ $loader->addPrefix('ModularityMyPages', MODULARITY_MY_PAGES_PATH . 'source/php/'
 $loader->register();
 
 // Acf auto import and export
-add_action('acf/init', function () {
-    $acfExportManager = new \AcfExportManager\AcfExportManager();
-    $acfExportManager->setTextdomain('modularity-mypages');
-    $acfExportManager->setExportFolder(MODULARITY_MY_PAGES_PATH . 'source/php/AcfFields/');
-    $acfExportManager->autoExport(array(
-        'modularitymypages-module' => 'group_61ea7a87e8mmm', //Update with acf id here, module view
-        'modularitymypages-settings' => 'group_61ea7a87e8nnn' //Update with acf id here, settings view
-    ));
-    $acfExportManager->import();
-});
+$acfExportManager = new \AcfExportManager\AcfExportManager();
+$acfExportManager->setTextdomain('modularity-mypages');
+$acfExportManager->setExportFolder(MODULARITY_MY_PAGES_PATH . 'source/php/AcfFields/');
+$acfExportManager->autoExport(array(
+    'modularitymypages-protected' => 'group_624d8216a1b87' //Update with acf id here, settings view
+));
+$acfExportManager->import();
+
 
 // Modularity 3.0 ready - ViewPath for Component library
 add_filter('/Modularity/externalViewPath', function ($arr) {
