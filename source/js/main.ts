@@ -2,6 +2,7 @@ import { AuthenticateBankIdOtherDevice } from './components/AuthenticateBankIdOt
 import { AuthenticateBankIdThisDevice } from './components/AuthenticateBankIdThisDevice';
 import { AuthenticationMenu } from './components/AuthenticationMenu';
 import { renderElement } from './utils';
+import Cookies from 'js-cookie';
 
 export enum AuthenticationMethods {
   BANKID_OTHER_DEVICE,
@@ -28,6 +29,12 @@ const App = () => {
       renderElement(authMenuComponent, rootComponent);
     },
   };
+
+  // Sign out function
+  document.querySelector('[data-mypages-signout="true"]')?.addEventListener('click', () => {
+    Cookies.remove('myPagesAuthenticated');
+    location.reload();
+  });
 
   actions.loadInitialState();
 

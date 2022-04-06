@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 export const renderElement = (node: Node, locationRef: string | Node) => {
   const location = typeof locationRef === 'string' ? document.querySelector(locationRef) : locationRef;
 
@@ -22,5 +24,5 @@ export const isMobileDevice = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 export const setAuthCookie = (authorizationCode: string) => {
-  document.cookie = `myPagesAuthenticated=${authorizationCode};path=/`;
+  Cookies.set('myPagesAuthenticated', authorizationCode, { path: '/' });
 };

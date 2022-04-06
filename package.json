@@ -26,6 +26,7 @@
     "not dead"
   ],
   "devDependencies": {
+    "@types/js-cookie": "^3.0.1",
     "@types/qrcode": "^1.4.2",
     "autoprefixer": "^10.4.2",
     "clean-webpack-plugin": "^4.0.0",
@@ -67,6 +68,7 @@
     ]
   },
   "dependencies": {
+    "js-cookie": "^3.0.1",
     "qrcode": "^1.5.0"
   }
 }
