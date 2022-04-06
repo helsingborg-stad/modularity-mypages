@@ -6,6 +6,7 @@ if (!function_exists('modularity_mypages_render_blade_view')) {
     function modularity_mypages_render_blade_view($view, $data = [], $compress = true)
     {
         $init = new ComponentLibraryInit([
+            MODULARITY_MY_PAGES_VIEW_PATH,
             MODULARITY_MY_PAGES_MODULE_VIEW_PATH
         ]);
 
