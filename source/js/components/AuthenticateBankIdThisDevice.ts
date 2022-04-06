@@ -1,6 +1,13 @@
 import { auth, cancel, collect, getClientIp } from '../api';
 import { SecondaryButton } from './SecondaryButton';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
+import {
+  BankIdRecommendedUsereMessages,
+  BankIdStatus,
+  getBankIdRecommendedUsereMessage,
+} from '../utils/bankid-message';
+import { isMobileDevice } from '../utils';
+import { Loader } from './Loader';
 
 export const AuthenticateBankIdThisDevice = (resetView: Function) => {
   const component = document.createElement('div');
@@ -9,7 +16,7 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
   component.setAttribute('class', 'u-margin__top--5 u-display--flex u-align-items--center u-flex-direction--column');
   component.appendChild(statusElement);
   component.appendChild(abortButtonComponent);
-  statusElement.textContent = 'Vänligen vänta...';
+  statusElement.appendChild(Loader('Laddar...'));
 
   getClientIp()
     .then((endUserIp) => auth({ endUserIp }))
@@ -19,25 +26,28 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
         return Promise.reject();
       });
       window.location.replace(`bankid:///?autostarttoken=${autoStartToken}&redirect=null`);
-      statusElement.textContent = 'Försöker starta bankid...';
       return orderRef;
     })
     .then((orderRef: string) => {
       const collectPoll = async (resolve: Function, reject: Function) => {
         try {
-          const { status, hintCode } = await collect({ orderRef });
-          if (hintCode === 'userSign') {
-            statusElement.textContent = 'Väntar på signering...';
-          }
-          if (status === 'complete') {
-            statusElement.textContent = 'Klart';
+          const { status, hintCode, errorCode } = await collect({ orderRef });
+
+          statusElement.innerHTML = getBankIdRecommendedUsereMessage({
+            authUsingQR: false,
+            mobileDevice: isMobileDevice(),
+            errorCode,
+            hintCode,
+            status,
+          });
+
+          if (status === BankIdStatus.COMPLETE) {
             resolve();
           } else {
             setTimeout(collectPoll, COLLECTPOLL_INTERVAL, resolve, reject);
           }
         } catch {
-          statusElement.textContent = 'Något gick fel';
-          reject();
+          reject(BankIdRecommendedUsereMessages.RFA22);
         }
       };
 
@@ -45,6 +55,9 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
     })
     .then(() => {
       window.location.href = MYPAGES_URL;
+    })
+    .catch((error) => {
+      statusElement.innerHTML = error;
     });
 
   return component;

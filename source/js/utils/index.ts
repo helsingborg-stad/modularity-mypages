@@ -14,5 +14,9 @@ export const renderElement = (node: Node, locationRef: string | Node) => {
   }
 };
 
+export const isDefined = <T>(value: T | undefined | null): value is T => {
+  return value !== undefined && value !== null;
+};
+
 export const isMobileDevice = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
