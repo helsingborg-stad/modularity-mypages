@@ -6,7 +6,7 @@ import {
   BankIdStatus,
   getBankIdRecommendedUsereMessage,
 } from '../utils/bankid-message';
-import { isMobileDevice } from '../utils';
+import { isMobileDevice, setAuthCookie } from '../utils';
 import { Loader } from './Loader';
 
 export const AuthenticateBankIdThisDevice = (resetView: Function) => {
@@ -31,7 +31,7 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
     .then((orderRef: string) => {
       const collectPoll = async (resolve: Function, reject: Function) => {
         try {
-          const { status, hintCode, errorCode } = await collect({ orderRef });
+          const { status, hintCode, errorCode, authorizationCode } = await collect({ orderRef });
 
           statusElement.innerHTML = getBankIdRecommendedUsereMessage({
             authUsingQR: false,
@@ -42,7 +42,7 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
           });
 
           if (status === BankIdStatus.COMPLETE) {
-            resolve();
+            resolve(authorizationCode);
           } else {
             setTimeout(collectPoll, COLLECTPOLL_INTERVAL, resolve, reject);
           }
@@ -53,7 +53,8 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
 
       return new Promise(collectPoll);
     })
-    .then(() => {
+    .then((authorizationCode) => {
+      setAuthCookie(authorizationCode as string);
       window.location.href = MYPAGES_URL;
     })
     .catch((error) => {

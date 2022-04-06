@@ -2,7 +2,7 @@ import qrcode from 'qrcode';
 import { auth, cancel, collect, getClientIp } from '../api';
 import { SecondaryButton } from './SecondaryButton';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
-import { isMobileDevice, renderElement } from '../utils';
+import { isMobileDevice, renderElement, setAuthCookie } from '../utils';
 import {
   BankIdHintCode,
   BankIdRecommendedUsereMessages,
@@ -24,7 +24,9 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
 
   const renderAuthQR = (code: string) => {
     const canvas = document.createElement('canvas');
-    qrcode.toCanvas(canvas, code);
+    qrcode.toCanvas(canvas, code, {
+      width: 170,
+    });
     renderElement(canvas, qrContainer);
   };
 
@@ -46,7 +48,7 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
     .then((orderRef: string) => {
       const collectPoll = async (resolve: Function, reject: Function) => {
         try {
-          const { status, authCode, hintCode, errorCode } = await collect({ orderRef });
+          const { status, authCode, hintCode, errorCode, authorizationCode } = await collect({ orderRef });
 
           statusElement.innerHTML = getBankIdRecommendedUsereMessage({
             authUsingQR: true,
@@ -63,7 +65,7 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
           }
 
           if (status === BankIdStatus.COMPLETE) {
-            resolve();
+            resolve(authorizationCode);
           } else {
             setTimeout(collectPoll, COLLECTPOLL_INTERVAL, resolve, reject);
           }
@@ -75,7 +77,8 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
 
       return new Promise(collectPoll);
     })
-    .then(() => {
+    .then((authorizationCode) => {
+      setAuthCookie(authorizationCode as string);
       window.location.href = MYPAGES_URL;
     })
     .catch((error) => {

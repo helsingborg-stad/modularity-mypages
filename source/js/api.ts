@@ -15,7 +15,6 @@ interface CancelRequestBody {
 
 const defaultHeaders = {
   'x-api-key': apiKey,
-  'user-agent': 'MittHelsingborg',
 };
 
 export const getClientIp = () => {
