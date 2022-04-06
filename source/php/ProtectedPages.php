@@ -4,7 +4,7 @@ namespace ModularityMyPages;
 
 /**
  * Class ModularityMyPages
- * @package ModularityMyPages\Module
+ * @package ModularityMyPages
  */
 class ProtectedPages
 {
@@ -13,6 +13,12 @@ class ProtectedPages
         add_action('template_redirect', array($this, 'templateRedirect'));
     }
 
+    /**
+     * Redirect to main page, if authentication is required on id.
+     * Check auth.
+     *
+     * @return void
+     */
     public function templateRedirect() //: void
     {
         if (!$this->isAuthenticated() && in_array((int) get_queried_object_id(), $this->protectedPostIDs())) {
@@ -21,6 +27,11 @@ class ProtectedPages
         }
     }
 
+    /**
+     * Get array of protected post ids.
+     *
+     * @return array
+     */
     private function protectedPostIDs(): array
     {
         return (array) get_field(
@@ -29,6 +40,11 @@ class ProtectedPages
         );
     }
 
+    /**
+     * Check and validate authentication token.
+     *
+     * @return boolean
+     */
     public function isAuthenticated(): bool
     {
         if (isset($_COOKIE['myPagesAuthenticated'])) {
