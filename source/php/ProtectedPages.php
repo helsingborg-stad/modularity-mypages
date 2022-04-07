@@ -8,7 +8,8 @@ namespace ModularityMyPages;
  */
 class ProtectedPages
 {
-    private $authenticationCookieName = 'myPagesAuthenticated';
+    private $authenticationCookieName   = 'myPagesAuthenticated';
+    private $protectedPostIDs           = null; //Cache
 
     public function __construct()
     {
@@ -23,9 +24,34 @@ class ProtectedPages
      */
     public function templateRedirect() //: void
     {
-        if (!$this->isAuthenticated() && in_array((int) get_queried_object_id(), $this->protectedPostIDs())) {
-            wp_redirect(home_url('/?signedOut=true'));
-            die;
+        if (in_array((int) get_queried_object_id(), $this->protectedPostIDs())) {
+            $this->bypassCache();
+            if (!$this->isAuthenticated()) {
+                wp_redirect(home_url('/?signedOut=true'));
+                die;
+            }
+        }
+    }
+
+    /**
+     * Bypass cache
+     *
+     * @return void
+     */
+    public function bypassCache() //: void
+    {
+        $headers = wp_get_nocache_headers();
+        if (!empty($headers) && is_array($headers)) {
+
+            //Add custom header, to inidcate what's
+            //bypassing the cache
+            $headers = array_merge($headers, [
+                'X-MyPages-Bypass-Cache' => 'true'
+            ]);
+
+            foreach ($headers as $header => $value) {
+                header($header . ": " . $value);
+            }
         }
     }
 
@@ -36,7 +62,11 @@ class ProtectedPages
      */
     private function protectedPostIDs(): array
     {
-        return (array) get_field(
+        if (!is_null($this->protectedPostIDs)) {
+            return $this->protectedPostIDs;
+        }
+
+        return $this->protectedPostIDs = (array) get_field(
             'mypages_protected_post_ids',
             'option'
         );
@@ -58,7 +88,9 @@ class ProtectedPages
     }
 
     /**
-     * Validate auth token string
+     * Validate auth token string.
+     * TODO: This should validate jwt token.
+     *       State: Insecure
      *
      * @param string $token
      * @return boolean
