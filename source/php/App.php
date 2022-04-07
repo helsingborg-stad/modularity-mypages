@@ -61,6 +61,15 @@ class App
             '1.0.0'
         );
 
+        wp_localize_script(
+            'modularity-mypages',
+            'myPagesLang',
+            [
+                'bankIdLogin' => __('BankID login', 'modularity-mypages'),
+                'bankIdThisDevice' => __('Login on this device', 'modularity-mypages'),
+            ]
+        );
+
         //Enqueue
         wp_enqueue_script('modularity-mypages');
     }
