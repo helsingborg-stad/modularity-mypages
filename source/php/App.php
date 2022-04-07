@@ -15,6 +15,7 @@ class App
         //Init frontend
         new ProtectedPages();
         new JsComponents();
+        new ApiComponents();
 
         //Register module
         add_action('plugins_loaded', array($this, 'registerModule'));
