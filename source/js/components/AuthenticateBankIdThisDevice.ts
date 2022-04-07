@@ -1,11 +1,7 @@
 import { auth, cancel, collect, getClientIp } from '../api';
 import { SecondaryButton } from './SecondaryButton';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
-import {
-  BankIdRecommendedUsereMessages,
-  BankIdStatus,
-  getBankIdRecommendedUsereMessage,
-} from '../utils/bankid-message';
+import { BankIdStatus, getBankIdRecommendedUsereMessage, inProgress } from '../utils/bankid-message';
 import { isMobileDevice, setAuthCookie } from '../utils';
 import { Loader } from './Loader';
 
@@ -33,7 +29,7 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
         try {
           const { status, hintCode, errorCode, authorizationCode } = await collect({ orderRef });
 
-          statusElement.innerHTML = getBankIdRecommendedUsereMessage({
+          const statusMessage = getBankIdRecommendedUsereMessage({
             authUsingQR: false,
             mobileDevice: isMobileDevice(),
             errorCode,
@@ -43,11 +39,16 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
 
           if (status === BankIdStatus.COMPLETE) {
             resolve(authorizationCode);
-          } else {
-            setTimeout(collectPoll, COLLECTPOLL_INTERVAL, resolve, reject);
           }
-        } catch {
-          reject(BankIdRecommendedUsereMessages.RFA22);
+
+          if (inProgress(statusMessage)) {
+            statusElement.innerHTML = statusMessage;
+            setTimeout(collectPoll, COLLECTPOLL_INTERVAL, resolve, reject);
+          } else {
+            reject(statusMessage);
+          }
+        } catch (error) {
+          statusElement.innerHTML = error as string;
         }
       };
 

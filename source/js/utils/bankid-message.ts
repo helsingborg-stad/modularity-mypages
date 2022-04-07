@@ -62,7 +62,7 @@ export const getBankIdRecommendedUsereMessage = ({
 }): BankIdRecommendedUsereMessages => {
   if (
     (status === BankIdStatus.PENDING && hintCode === BankIdHintCode.OUTSTANDING_TRANSACTION) ||
-    BankIdHintCode.NO_CLIENT
+    hintCode === BankIdHintCode.NO_CLIENT
   ) {
     return BankIdRecommendedUsereMessages.RFA1;
   }
@@ -124,4 +124,15 @@ export const getBankIdRecommendedUsereMessage = ({
   }
 
   return BankIdRecommendedUsereMessages.RFA22;
+};
+
+export const inProgress = (status: BankIdRecommendedUsereMessages) => {
+  return (
+    status === BankIdRecommendedUsereMessages.RFA1 ||
+    status === BankIdRecommendedUsereMessages.RFA9 ||
+    status === BankIdRecommendedUsereMessages.RFA13 ||
+    status === BankIdRecommendedUsereMessages.RFA15_A ||
+    status === BankIdRecommendedUsereMessages.RFA15_B ||
+    status === BankIdRecommendedUsereMessages.RFA21
+  );
 };

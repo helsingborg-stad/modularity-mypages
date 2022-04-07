@@ -3,12 +3,7 @@ import { auth, cancel, collect, getClientIp } from '../api';
 import { SecondaryButton } from './SecondaryButton';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
 import { isMobileDevice, renderElement, setAuthCookie } from '../utils';
-import {
-  BankIdHintCode,
-  BankIdRecommendedUsereMessages,
-  BankIdStatus,
-  getBankIdRecommendedUsereMessage,
-} from '../utils/bankid-message';
+import { BankIdHintCode, BankIdStatus, getBankIdRecommendedUsereMessage, inProgress } from '../utils/bankid-message';
 import { Loader } from './Loader';
 
 export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
@@ -50,7 +45,7 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
         try {
           const { status, authCode, hintCode, errorCode, authorizationCode } = await collect({ orderRef });
 
-          statusElement.innerHTML = getBankIdRecommendedUsereMessage({
+          const statusMessage = getBankIdRecommendedUsereMessage({
             authUsingQR: true,
             mobileDevice: isMobileDevice(),
             errorCode,
@@ -58,20 +53,25 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
             status,
           });
 
+          if (status === BankIdStatus.COMPLETE) {
+            resolve(authorizationCode);
+          }
+
           if (hintCode === BankIdHintCode.USER_SIGN) {
             clearAuthQR();
           } else {
             renderAuthQR(authCode);
           }
 
-          if (status === BankIdStatus.COMPLETE) {
-            resolve(authorizationCode);
-          } else {
+          if (inProgress(statusMessage)) {
+            statusElement.innerHTML = statusMessage;
             setTimeout(collectPoll, COLLECTPOLL_INTERVAL, resolve, reject);
+          } else {
+            reject(statusMessage);
           }
-        } catch {
+        } catch (error) {
           clearAuthQR();
-          reject(BankIdRecommendedUsereMessages.RFA22);
+          statusElement.innerHTML = error as string;
         }
       };
 
