@@ -1,0 +1,2 @@
+@icon($props)
+@endicon

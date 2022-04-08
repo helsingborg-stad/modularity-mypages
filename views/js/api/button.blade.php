@@ -1,0 +1,2 @@
+@button($props)
+@endbutton

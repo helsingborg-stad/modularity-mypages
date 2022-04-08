@@ -1,2 +1,0 @@
-@button($get)
-@endbutton

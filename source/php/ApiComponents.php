@@ -17,7 +17,7 @@ class ApiComponents
     {
         register_rest_route(
             $this->restNamespace,
-            'getComponentButton',
+            'getComponent',
             array(
                 'methods' => ['GET', 'POST'],
                 'callback' => array($this, 'render'),
@@ -27,12 +27,44 @@ class ApiComponents
 
     public function render()
     {
-        $return = [
-            'success' => true,
-            'html' => $this->renderView('js.test', ['get' => (array) $_REQUEST])
-        ];
+        if (isset($_REQUEST) && !empty($_REQUEST) && is_array($_REQUEST)) {
 
-        return wp_send_json($return);
+            foreach ($_REQUEST as $key => $component) {
+
+                if (is_array($component) && !empty($component)) {
+                    if (!isset($component['component']) || isset($component['component']) && $component['component'] == '') {
+                        return wp_send_json([
+                            'error' => true,
+                            'message' => 'Component is required for: ' . $key
+                        ]);
+                    }
+
+                    if (!isset($component['props']) || isset($component['props']) && !is_array($component['props'])) {
+                        return wp_send_json([
+                            'error' => true,
+                            'message' => 'Props is required for: ' . $key
+                        ]);
+                    }
+
+                    $return[$key] = [
+                        'key' => $key,
+                        'html' => $this->renderView(
+                            'js.api.' . $component['component'],
+                            [
+                                'props' => (array) $component['props']
+                            ]
+                        )
+                    ];
+                }
+            }
+
+            return wp_send_json($return);
+        }
+
+        return wp_send_json([
+            'error' => true,
+            'message' => 'Malformed request. Component specification should be a multidomentsional array.'
+        ]);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace ModularityMyPages;
 class JsComponents
 {
     private $components = [];
-    private $viewPath   = MODULARITY_MY_PAGES_VIEW_PATH . 'js/';
+    private $viewPath   = MODULARITY_MY_PAGES_VIEW_PATH . 'js/object/';
 
     public function __construct()
     {
