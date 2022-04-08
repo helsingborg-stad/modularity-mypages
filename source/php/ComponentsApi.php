@@ -2,7 +2,7 @@
 
 namespace ModularityMyPages;
 
-class ApiComponents
+class ComponentsApi
 {
     private $restNamespace = 'modularity-mypages/v1';
     private $components = [];
