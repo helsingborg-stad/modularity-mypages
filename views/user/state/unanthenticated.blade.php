@@ -18,7 +18,7 @@
 ])
     <p>Här kan du logga in på mina sidor. Det här är en POC som påvisar hur ett inloggningsförfarande kan fungera på webben.</p>
 
-    <div id="login-app"></div>
+    <div data-mypages-login></div>
 
     <!-- Broken stuff in modal. Needs fix. -->
     <style>

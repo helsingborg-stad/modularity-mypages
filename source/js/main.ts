@@ -41,4 +41,4 @@ const App = () => {
   return rootComponent;
 };
 
-renderElement(App(), '#login-app');
+renderElement(App(), '[data-mypages-login]');
