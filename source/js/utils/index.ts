@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-export const renderElement = (node: Node, locationRef: string | Node) => {
+export const renderElement = (node: Node, locationRef: string | Node | null) => {
   const location = typeof locationRef === 'string' ? document.querySelector(locationRef) : locationRef;
 
   if (!location) {
@@ -26,3 +26,10 @@ export const isMobileDevice = () =>
 export const setAuthCookie = (authorizationCode: string) => {
   Cookies.set('myPagesAuthenticated', authorizationCode, { path: '/' });
 };
+
+export function htmlToElement<T>(html: string): T {
+  var template = document.createElement('template');
+  html = html.trim();
+  template.innerHTML = html;
+  return template.content.firstChild as unknown as T;
+}

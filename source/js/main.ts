@@ -24,8 +24,8 @@ const App = () => {
           break;
       }
     },
-    loadInitialState: function () {
-      const authMenuComponent = AuthenticationMenu(this.onNavigate.bind(actions));
+    loadInitialState: async function () {
+      const authMenuComponent = await AuthenticationMenu(this.onNavigate.bind(actions));
       renderElement(authMenuComponent, rootComponent);
     },
   };

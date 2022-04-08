@@ -1,32 +1,28 @@
 import { AuthenticationMethods } from '../main';
-import { SecondaryButton } from './SecondaryButton';
-import { PrimaryButton } from './PrimaryButton';
-import { BankIDButtonLogo } from '../assets/BankIdButtonLogo';
-import { isMobileDevice } from '../utils';
+import { htmlToElement, isMobileDevice } from '../utils';
 
-export const AuthenticationMenu = (onSelect: Function) => {
-  const component = document.createElement('div');
+const desktop = (onSelect: Function) => {
+  const component = htmlToElement<HTMLDivElement>(myPagesComponents['login-menu-desktop'].html);
+  const primaryButton = component.querySelector<HTMLButtonElement>('[data-mypages-login-primary]');
+  const secondaryButton = component.querySelector<HTMLButtonElement>('[data-mypages-login-secondary]');
 
-  let primaryAuthButton;
-  let secondaryAuthButton;
-
-  if (isMobileDevice()) {
-    primaryAuthButton = PrimaryButton(`${BankIDButtonLogo} Logga in med mobilt BankID`, () =>
-      onSelect(AuthenticationMethods.BANKID_THIS_DEVICE),
-    );
-    secondaryAuthButton = SecondaryButton('Mobilt BankID på en annan enhet', () =>
-      onSelect(AuthenticationMethods.BANKID_OTHER_DEVICE),
-    );
-  } else {
-    primaryAuthButton = PrimaryButton(`${BankIDButtonLogo} Logga in med mobilt BankID`, () =>
-      onSelect(AuthenticationMethods.BANKID_OTHER_DEVICE),
-    );
-    secondaryAuthButton = SecondaryButton('BankID på fil?', () => onSelect(AuthenticationMethods.BANKID_THIS_DEVICE));
-  }
-
-  component.setAttribute('class', 'u-margin__top--5 u-display--flex u-align-items--center u-flex-direction--column');
-  component.appendChild(primaryAuthButton);
-  component.appendChild(secondaryAuthButton);
+  primaryButton?.addEventListener('click', () => onSelect(AuthenticationMethods.BANKID_OTHER_DEVICE));
+  secondaryButton?.addEventListener('click', () => onSelect(AuthenticationMethods.BANKID_THIS_DEVICE));
 
   return component;
+};
+
+const mobile = (onSelect: Function) => {
+  const component = htmlToElement<HTMLDivElement>(myPagesComponents['login-menu-mobile'].html);
+  const primaryButton = component.querySelector<HTMLButtonElement>('[data-mypages-login-primary]');
+  const secondaryButton = component.querySelector<HTMLButtonElement>('[data-mypages-login-secondary]');
+
+  primaryButton?.addEventListener('click', () => onSelect(AuthenticationMethods.BANKID_THIS_DEVICE));
+  secondaryButton?.addEventListener('click', () => onSelect(AuthenticationMethods.BANKID_OTHER_DEVICE));
+
+  return component;
+};
+
+export const AuthenticationMenu = async (onSelect: Function) => {
+  return isMobileDevice() ? mobile(onSelect) : desktop(onSelect);
 };

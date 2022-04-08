@@ -1,3 +1,5 @@
+import { htmlToElement } from './utils';
+
 const baseURL = 'https://5562c8y5qb.execute-api.eu-north-1.amazonaws.com/dev/';
 const apiKey = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
 
@@ -55,5 +57,15 @@ export const cancel = (cancelRequestBody: CancelRequestBody) => {
     .then((response) => response.json())
     .then((response) => {
       return response.data.attributes;
+    });
+};
+
+export const getComponent = (component: string, options: Record<string, string>) => {
+  return fetch('/wp-json/modularity-mypages/v1/getComponentButton?' + new URLSearchParams(options), {
+    method: 'GET',
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return htmlToElement(response.html);
     });
 };
