@@ -1,4 +1,4 @@
-import { AuthenticationMethods } from '../main';
+import { AuthenticationMethods } from '../modules/login';
 import { htmlToElement, isMobileDevice } from '../utils';
 
 const desktop = (onSelect: Function) => {
