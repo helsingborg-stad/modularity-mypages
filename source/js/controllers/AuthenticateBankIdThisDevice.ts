@@ -1,7 +1,7 @@
 import { auth, cancel, collect, getClientIp } from '../api';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
 import { BankIdStatus, getBankIdRecommendedUsereMessage, inProgress } from '../utils/bankid-message';
-import { htmlToElement, isMobileDevice, setAuthCookie } from '../utils';
+import { htmlToElement, isMobileDevice, setAuthorizationCookie } from '../utils';
 
 export const AuthenticateBankIdThisDevice = (resetView: Function) => {
   const component = htmlToElement<HTMLDivElement>(myPagesComponents['authentication-bankid'].html);
@@ -51,7 +51,7 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
       return new Promise(collectPoll);
     })
     .then((authorizationCode) => {
-      setAuthCookie(authorizationCode as string);
+      setAuthorizationCookie(authorizationCode as string);
       window.location.href = MYPAGES_URL;
     })
     .catch((error) => {

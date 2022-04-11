@@ -23,8 +23,12 @@ export const isDefined = <T>(value: T | undefined | null): value is T => {
 export const isMobileDevice = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-export const setAuthCookie = (authorizationCode: string) => {
+export const setAuthorizationCookie = (authorizationCode: string) => {
   Cookies.set('myPagesAuthenticated', authorizationCode, { path: '/' });
+};
+
+export const getAuthorizationCookie = () => {
+  return Cookies.get('myPagesAuthenticated');
 };
 
 export function htmlToElement<T>(html: string): T {
@@ -33,3 +37,19 @@ export function htmlToElement<T>(html: string): T {
   template.innerHTML = html;
   return template.content.firstChild as unknown as T;
 }
+
+export const getInputValue = (element: HTMLInputElement) => {
+  return element.value;
+};
+
+export const setInputValue = (element: HTMLInputElement, value: string) => {
+  return (element.value = value);
+};
+
+export const showElement = (element: HTMLElement) => {
+  element.classList.remove('u-display--none');
+};
+
+export const hideElement = (element: HTMLElement) => {
+  element.classList.add('u-display--none');
+};

@@ -44,23 +44,7 @@ class Profile extends \Modularity\Module
             'email' => __('Email', 'modularity-mypages'),
         );
 
-        //User details
-        $data['user'] = (object) $this->getUserData();
-
         return $data;
-    }
-
-    /**
-     * Fake user data object
-     *
-     * @return array
-     */
-    private function getUserData(): array
-    {
-        return [
-            'email' => 'example@mail.com',
-            'phone' => '07012345678',
-        ];
     }
 
     /**

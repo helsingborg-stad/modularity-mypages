@@ -1,7 +1,7 @@
 import qrcode from 'qrcode';
 import { auth, cancel, collect, getClientIp } from '../api';
 import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
-import { htmlToElement, isMobileDevice, renderElement, setAuthCookie } from '../utils';
+import { htmlToElement, isMobileDevice, renderElement, setAuthorizationCookie } from '../utils';
 import { BankIdHintCode, BankIdStatus, getBankIdRecommendedUsereMessage, inProgress } from '../utils/bankid-message';
 
 export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
@@ -71,7 +71,7 @@ export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
       return new Promise(collectPoll);
     })
     .then((authorizationCode) => {
-      setAuthCookie(authorizationCode as string);
+      setAuthorizationCookie(authorizationCode as string);
       window.location.href = MYPAGES_URL;
     })
     .catch((error) => {
