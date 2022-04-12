@@ -1,3 +1,4 @@
+import { SIGNOUT_URL } from './constants';
 import { getAuthorizationCookie, htmlToElement } from './utils/dom';
 
 const baseURL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
@@ -26,6 +27,16 @@ const defaultHeaders = {
 
 const authorizationHeaders = {
   Authorization: `Bearer ${getAuthorizationCookie()}`,
+};
+
+const handleError = (error: Error) => {
+  switch (error.message) {
+    case '401':
+      window.location.href = SIGNOUT_URL;
+      break;
+    default:
+      break;
+  }
 };
 
 export const getClientIp = () => {
@@ -82,6 +93,9 @@ export const getUser = () => {
     })
     .then((response) => {
       return response.data.attributes;
+    })
+    .catch((error) => {
+      handleError(error);
     });
 };
 
@@ -99,6 +113,9 @@ export const putUser = (putUserRequestBody: User) => {
     })
     .then((response) => {
       return response.data.attributes;
+    })
+    .catch((error) => {
+      handleError(error);
     });
 };
 
