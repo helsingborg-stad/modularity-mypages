@@ -35,6 +35,7 @@ const main = () => {
     try {
       await putUser(body);
       showElement(submitedNotice);
+      user = Object.assign(user, body);
       inFlight = false;
     } catch {
       inFlight = false;
