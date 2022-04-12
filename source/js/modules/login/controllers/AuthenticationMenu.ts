@@ -1,5 +1,5 @@
-import { AuthenticationMethods } from '../modules/login';
-import { htmlToElement, isMobileDevice } from '../utils';
+import { AuthenticationMethods } from '..';
+import { htmlToElement, isMobileDevice } from '../../../utils/dom';
 
 const desktop = (onSelect: Function) => {
   const component = htmlToElement<HTMLDivElement>(myPagesComponents['login-menu-desktop'].html);

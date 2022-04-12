@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
-import { AuthenticateBankIdOtherDevice } from '../controllers/AuthenticateBankIdOtherDevice';
-import { AuthenticateBankIdThisDevice } from '../controllers/AuthenticateBankIdThisDevice';
-import { AuthenticationMenu } from '../controllers/AuthenticationMenu';
-import { renderElement } from '../utils';
+import { AuthenticateBankIdOtherDevice } from './controllers/AuthenticateBankIdOtherDevice';
+import { AuthenticateBankIdThisDevice } from './controllers/AuthenticateBankIdThisDevice';
+import { AuthenticationMenu } from './controllers/AuthenticationMenu';
+import { renderElement } from '../../utils/dom';
 
 export enum AuthenticationMethods {
   BANKID_OTHER_DEVICE,

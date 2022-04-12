@@ -1,4 +1,4 @@
-import { getAuthorizationCookie, htmlToElement } from './utils';
+import { getAuthorizationCookie, htmlToElement } from './utils/dom';
 
 const baseURL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
 const apiKey = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';

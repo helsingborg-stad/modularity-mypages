@@ -1,19 +1,35 @@
-import { auth, cancel, collect, getClientIp } from '../api';
-import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../constants';
-import { BankIdStatus, getBankIdRecommendedUsereMessage, inProgress } from '../utils/bankid-message';
-import { htmlToElement, isMobileDevice, setAuthorizationCookie } from '../utils';
+import qrcode from 'qrcode';
+import { auth, cancel, collect, getClientIp } from '../../../api';
+import { COLLECTPOLL_INTERVAL, MYPAGES_URL } from '../../../constants';
+import { htmlToElement, isMobileDevice, renderElement, setAuthorizationCookie } from '../../../utils/dom';
+import { BankIdHintCode, BankIdStatus, getBankIdRecommendedUsereMessage, inProgress } from '../../../utils/bankid';
 
-export const AuthenticateBankIdThisDevice = (resetView: Function) => {
+export const AuthenticateBankIdOtherDevice = (resetView: Function) => {
   const component = htmlToElement<HTMLDivElement>(myPagesComponents['authentication-bankid'].html);
+  const qrContainer = component.querySelector('[data-mypages-login-qr]') as HTMLDivElement;
   const statusContainer = component.querySelector('[data-mypages-login-status]') as HTMLParagraphElement;
   const loader = component.querySelector('[data-mypages-login-loader]') as HTMLElement;
   const abortButton = component.querySelector('[data-mypages-login-abort]') as HTMLButtonElement;
 
   abortButton.addEventListener('click', () => resetView());
 
+  const renderAuthQR = (code: string) => {
+    const canvas = document.createElement('canvas');
+    qrcode.toCanvas(canvas, code, {
+      width: 170,
+    });
+    renderElement(canvas, qrContainer);
+  };
+
+  const clearAuthQR = () => {
+    if (qrContainer.childNodes[0]) {
+      qrContainer.removeChild(qrContainer.childNodes[0]);
+    }
+  };
+
   getClientIp()
     .then((endUserIp) => auth({ endUserIp }))
-    .then(({ autoStartToken, orderRef }) => {
+    .then(({ orderRef }) => {
       let timeout: NodeJS.Timeout;
 
       component.removeChild(loader);
@@ -23,13 +39,11 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
         cancel({ orderRef });
       });
 
-      window.location.replace(`bankid:///?autostarttoken=${autoStartToken}&redirect=null`);
-
       const collectPoll = async (resolve: Function, reject: Function) => {
-        const { status, hintCode, errorCode, authorizationCode } = await collect({ orderRef });
+        const { status, authCode, hintCode, errorCode, authorizationCode } = await collect({ orderRef });
 
         const statusMessage = getBankIdRecommendedUsereMessage({
-          authUsingQR: false,
+          authUsingQR: true,
           mobileDevice: isMobileDevice(),
           errorCode,
           hintCode,
@@ -40,8 +54,14 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
           resolve(authorizationCode);
         }
 
+        if (hintCode === BankIdHintCode.USER_SIGN) {
+          clearAuthQR();
+        } else {
+          renderAuthQR(authCode);
+        }
+
         if (inProgress(statusMessage)) {
-          statusContainer.innerHTML = statusMessage;
+          statusContainer.textContent = statusMessage;
           timeout = setTimeout(collectPoll, COLLECTPOLL_INTERVAL, resolve, reject);
         } else {
           reject(statusMessage);
@@ -55,6 +75,7 @@ export const AuthenticateBankIdThisDevice = (resetView: Function) => {
       window.location.href = MYPAGES_URL;
     })
     .catch((error) => {
+      clearAuthQR();
       statusContainer.innerHTML = error;
     });
 

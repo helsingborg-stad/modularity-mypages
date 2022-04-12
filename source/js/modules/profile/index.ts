@@ -1,5 +1,5 @@
-import { getUser, putUser } from '../api';
-import { getInputValue, hideElement, setInputValue, showElement } from '../utils';
+import { getUser, putUser } from '../../api';
+import { getInputValue, hideElement, setInputValue, showElement } from '../../utils/dom';
 
 const main = () => {
   let user: Record<string, string>;
