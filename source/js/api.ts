@@ -21,6 +21,15 @@ interface User {
   mobilePhone: string;
 }
 
+export interface Task {
+  type: string;
+  title: string;
+  complete: boolean;
+  lastUpdated: string;
+  info?: string;
+  status?: string;
+}
+
 const defaultHeaders = {
   'x-api-key': apiKey,
 };
@@ -127,4 +136,30 @@ export const getComponent = (component: string, options: Record<string, string>)
     .then((response) => {
       return htmlToElement(response.html);
     });
+};
+
+export const getTasks = (): Promise<Task[]> => {
+  return Promise.resolve([
+    {
+      title: 'Ekonomiskt bistånd',
+      complete: false,
+      lastUpdated: 'Senast uppdaterad 19 april',
+      type: 'payment',
+      status: 'Öppen',
+    },
+    {
+      title: 'Uppdatera din profil',
+      complete: false,
+      lastUpdated: 'Senast uppdaterad 20 januari',
+      type: 'settings',
+      info: 'För att vi ska kunna ge dig bra service, så vill vi gärna ha mer information om dig.',
+    },
+    {
+      title: 'Ekonomiskt bistånd',
+      complete: true,
+      lastUpdated: 'Senast uppdaterad 25 mars',
+      type: 'payment',
+      status: 'Utbetald',
+    },
+  ]);
 };
