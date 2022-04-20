@@ -29,15 +29,15 @@
                         'classList' => ['u-display--none', 'u-margin__bottom--3']
                     ])
                     @endnotice
-
-                    @loader([
-                        'color' => 'primary',
-                        'classList' => ['u-margin__top--5', 'u-margin__bottom--5'],
-                        'attributeList' => ['data-mypages-profile-loader' => ''],
-                    ])
-                    @endloader
                 </div>
             </div>
+
+            @loader([
+                'color' => 'primary',
+                'classList' => ['u-margin__top--5', 'u-margin__bottom--5'],
+                'attributeList' => ['data-mypages-profile-loader' => ''],
+            ])
+            @endloader
             
             @form([
                 'attributeList' => [
