@@ -8,7 +8,7 @@ const task = (item: Task): Node => {
                 <div class="tasklist__item-icon tasklist__item-icon--${item.type}"></div>
             </div>
             <div class="tasklist__item-body">
-                <h3 class="tasklist__item-title">${item.title}<h3>
+                <h3 class="tasklist__item-title">${item.title}</h3>
                 ${item.info ? `<div class="tasklist__item-info">${item.info}</div>` : ''}
                 ${item.status ? `<div class="tasklist__item-status">${item.status}</div>` : ''}
             </div>
@@ -42,6 +42,12 @@ export const main = async () => {
     rootComponent.appendChild(header);
     rootComponent.appendChild(list);
   }
+
+  const button = htmlToElement<HTMLElement>(
+    `<button type="button" class="c-button c-button__outlined c-button__outlined--primary c-button--md ripple ripple--before u-margin__top--3"">Visa alla</div>`,
+  );
+
+  rootComponent.appendChild(button);
 
   return rootComponent;
 };
