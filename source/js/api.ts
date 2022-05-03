@@ -21,11 +21,12 @@ interface User {
   mobilePhone: string;
 }
 
-export interface Task {
+export interface Taskmodel {
   type: string;
   title: string;
   complete: boolean;
   lastUpdated: string;
+  history: string;
   info?: string;
   status?: string;
 }
@@ -138,28 +139,34 @@ export const getComponent = (component: string, options: Record<string, string>)
     });
 };
 
-export const getTasks = (): Promise<Task[]> => {
+export const getTasks = (): Promise<Taskmodel[]> => {
   return Promise.resolve([
     {
       title: 'Ekonomiskt bistånd',
       complete: false,
       lastUpdated: 'Senast uppdaterad 19 april',
-      type: 'payment',
+      type: 'account',
       status: 'Öppen',
+      history:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis libero sed dui tempus malesuada. Duis vulputate consequat placerat. Fusce convallis posuere enim at lobortis. ',
     },
     {
       title: 'Uppdatera din profil',
       complete: false,
       lastUpdated: 'Senast uppdaterad 20 januari',
-      type: 'settings',
+      type: 'account',
       info: 'För att vi ska kunna ge dig bra service, så vill vi gärna ha mer information om dig.',
+      history:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis libero sed dui tempus malesuada. Duis vulputate consequat placerat. Fusce convallis posuere enim at lobortis. ',
     },
     {
       title: 'Ekonomiskt bistånd',
       complete: true,
       lastUpdated: 'Senast uppdaterad 25 mars',
-      type: 'payment',
+      type: 'account',
       status: 'Utbetald',
+      history:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis libero sed dui tempus malesuada. Duis vulputate consequat placerat. Fusce convallis posuere enim at lobortis. ',
     },
   ]);
 };
