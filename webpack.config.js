@@ -16,10 +16,7 @@ module.exports = {
    * Add your entry files here
    */
   entry: {
-    'css/modularity-mypages': './source/sass/modularity-mypages.scss',
-
     'js/modularity-mypages': './source/js/main.ts',
-
     'js/modularity-mypages-profile': './source/js/modules/profile/index.ts',
     'js/modularity-mypages-tasks': './source/js/modules/tasks/index.ts',
     'js/modularity-mypages-service': './source/js/modules/service/index.ts',

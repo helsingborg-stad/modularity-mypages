@@ -2,6 +2,7 @@ import { flyg } from 'flyg';
 import { Task } from './components/Task';
 import { getTasks, Taskmodel } from '../../api';
 import { renderElement } from '../../utils/dom';
+import './main.scss';
 
 export const main = async () => {
   const rootComponent = document.createElement('div');

@@ -59,12 +59,10 @@ class Tasks extends \Modularity\Module
      */
     public function style()
     {
-        return; // Deactivate style
-
         //Register custom css
         wp_register_style(
             'modularity-mypages-tasks',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('css/modularity-mypages-tasks.css'),
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-tasks.css'),
             null,
             '1.0.0'
         );
