@@ -2,7 +2,8 @@ import { AuthenticateBankIdOtherDevice } from './controllers/AuthenticateBankIdO
 import { AuthenticateBankIdThisDevice } from './controllers/AuthenticateBankIdThisDevice';
 import { AuthenticationMenu } from './controllers/AuthenticationMenu';
 
-import { removeAuthorizationCookie, renderElement } from '../../utils/dom';
+import { renderElement } from '../../utils/dom';
+import { removeAuthorizationCookie } from '../../utils/session';
 
 export enum AuthenticationMethods {
   BANKID_OTHER_DEVICE,

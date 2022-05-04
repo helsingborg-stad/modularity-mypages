@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie';
-
 export const renderElement = (node: Node, locationRef: string | Node | null) => {
   const location = typeof locationRef === 'string' ? document.querySelector(locationRef) : locationRef;
 
@@ -22,18 +20,6 @@ export const isDefined = <T>(value: T | undefined | null): value is T => {
 
 export const isMobileDevice = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-export const setAuthorizationCookie = (authorizationCode: string) => {
-  Cookies.set('myPagesAuthenticated', authorizationCode, { path: '/' });
-};
-
-export const removeAuthorizationCookie = () => {
-  Cookies.remove('myPagesAuthenticated');
-};
-
-export const getAuthorizationCookie = () => {
-  return Cookies.get('myPagesAuthenticated');
-};
 
 export function htmlToElement<T>(html: string): T {
   var template = document.createElement('template');
