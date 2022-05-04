@@ -1,8 +1,8 @@
-import Cookies from 'js-cookie';
 import { AuthenticateBankIdOtherDevice } from './controllers/AuthenticateBankIdOtherDevice';
 import { AuthenticateBankIdThisDevice } from './controllers/AuthenticateBankIdThisDevice';
 import { AuthenticationMenu } from './controllers/AuthenticationMenu';
-import { renderElement } from '../../utils/dom';
+
+import { removeAuthorizationCookie, renderElement } from '../../utils/dom';
 
 export enum AuthenticationMethods {
   BANKID_OTHER_DEVICE,
@@ -31,8 +31,8 @@ export const login = () => {
   };
 
   // Sign out function
-  document.querySelector('[data-mypages-signout="true"]')?.addEventListener('click', () => {
-    Cookies.remove('myPagesAuthenticated');
+  document.querySelector('[data-mypages-signout]')?.addEventListener('click', () => {
+    removeAuthorizationCookie();
     location.reload();
   });
 

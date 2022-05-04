@@ -4,6 +4,6 @@
     'style' => 'basic',
     'icon' => 'power_settings_new',
     'reversePositions' => true,
-    'attributeList' => ['data-mypages-signout' => 'true']
+    'attributeList' => ['data-mypages-signout']
 ])
 @endbutton
