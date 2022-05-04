@@ -1,10 +1,14 @@
-const calculateElementHeight = (el: HTMLElement): number => {
-  if (!el.parentElement) return 0;
-  const clone: HTMLElement = el.cloneNode(true) as HTMLElement;
+const calculateElementHeight = (element: HTMLElement): number => {
+  if (!element.parentElement) {
+    return 0;
+  }
+
+  const clone = element.cloneNode(true) as HTMLElement;
   clone.style.cssText = 'height: auto; position: absolute; opacity: 0;';
-  el.parentElement.appendChild(clone);
+  element.parentElement.appendChild(clone);
   const { height } = clone.getBoundingClientRect();
-  el.parentElement.removeChild(clone);
+  element.parentElement.removeChild(clone);
+
   return height;
 };
 
