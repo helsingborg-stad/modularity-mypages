@@ -49,6 +49,7 @@ $acfExportManager->import();
 // Modularity 3.0 ready - ViewPath for Component library
 add_filter('/Modularity/externalViewPath', function ($arr) {
     $arr['mod-mypages-profile'] = MODULARITY_MY_PAGES_MODULE_VIEW_PATH . '/Profile/views/';
+    $arr['mod-mypages-welcome'] = MODULARITY_MY_PAGES_MODULE_VIEW_PATH . '/Welcome/views/';
     $arr['mod-mypages-service'] = MODULARITY_MY_PAGES_MODULE_VIEW_PATH . '/Service/views/';
     $arr['mod-mypages-tasks']   = MODULARITY_MY_PAGES_MODULE_VIEW_PATH . '/Tasks/views/';
     return $arr;

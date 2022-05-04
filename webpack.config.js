@@ -17,6 +17,7 @@ module.exports = {
    */
   entry: {
     'js/modularity-mypages': './source/js/main.ts',
+    'js/modularity-mypages-welcome': './source/js/modules/welcome/index.ts',
     'js/modularity-mypages-profile': './source/js/modules/profile/index.ts',
     'js/modularity-mypages-tasks': './source/js/modules/tasks/index.ts',
     'js/modularity-mypages-service': './source/js/modules/service/index.ts',
