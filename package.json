@@ -62,7 +62,7 @@
     "child_process": false
   },
   "dependencies": {
-    "flyg": "^0.0.7",
+    "flyg": "^0.0.8",
     "js-cookie": "^3.0.1",
     "qrcode": "^1.5.0"
   },

@@ -13,27 +13,23 @@ export const main = async () => {
   );
 
   if (ongoingTasks.length > 0) {
-    const list = flyg<HTMLElement>`<div></div>`;
-    const tasks = flyg<HTMLElement>`
+    const list = flyg<HTMLElement>`
       <div class="tasklist">
         <h2 class="tasklist__header u-margin__bottom--2">Aktiva</h2>
-        ${list}
+        ${ongoingTasks.map((item: Taskmodel) => Task(item))}
       </div>`;
 
-    ongoingTasks.forEach((item: Taskmodel) => list.appendChild(Task(item)));
-    rootComponent.appendChild(tasks);
+    rootComponent.appendChild(list);
   }
 
   if (completedTasks.length > 0) {
-    const list = flyg<HTMLElement>`<div></div>`;
-    const tasks = flyg<HTMLElement>`
+    const list = flyg<HTMLElement>`
       <div class="tasklist tasklist--completed">
         <h2 class="tasklist__header u-margin__bottom--2">Avslutade</h2>
-        ${list}
+        ${completedTasks.map((item: Taskmodel) => Task(item))}
       </div>`;
 
-    completedTasks.forEach((item: Taskmodel) => list.appendChild(Task(item)));
-    rootComponent.appendChild(tasks);
+    rootComponent.appendChild(list);
   }
 
   return rootComponent;
