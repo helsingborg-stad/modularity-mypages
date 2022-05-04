@@ -1,9 +1,6 @@
-body {
-  --color-background-complementary: rgb(229, 188, 188);
-}
-
+/* Fix in styleguide? */
+.c-nav,
 .c-paper {
-  --drop-shadow-amount: 0.2;
   overflow: hidden;
 }
 
@@ -22,6 +19,7 @@ body {
   }
   .task__history {
     background: var(--color-lighter);
+    box-shadow: 0 -2px 0 0 var(--color-light);
   }
 }
 
@@ -82,7 +80,7 @@ body {
 }
 
 .task__history {
-  box-shadow: 0 -2px 0 0 rgb(220, 146, 146);
+  box-shadow: 0 -2px 0 0 var(--color-secondary);
   background: var(--color-background-complementary);
   height: auto;
   transition: all 200ms ease-in-out;
