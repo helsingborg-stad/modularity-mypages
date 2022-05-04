@@ -1,40 +1,47 @@
+import './main.scss';
+
 import { flyg } from 'flyg';
 import { Task } from './components/Task';
-import { getTasks, Taskmodel } from '../../api';
+import { Loader } from './components/Loader';
+import { Case, getTasks } from '../../api';
 import { renderElement } from '../../utils/dom';
-import './main.scss';
 
 export const main = async () => {
   const rootComponent = document.createElement('div');
-  const response = await getTasks();
-  const [completedTasks, ongoingTasks] = response.reduce(
-    ([completed, ongoing], item) => (item.complete ? [[...completed, item], ongoing] : [completed, [...ongoing, item]]),
-    [[], []] as [Taskmodel[], Taskmodel[]],
-  );
+  const { current, archive } = await getTasks();
 
-  if (ongoingTasks.length > 0) {
+  if (current.length > 0) {
     const list = flyg<HTMLElement>`
       <div class="tasklist">
-        <h2 class="tasklist__header u-margin__bottom--2">Aktiva</h2>
-        ${ongoingTasks.map((item: Taskmodel) => Task(item))}
+        <h2 class="tasklist__header u-margin__bottom--2">Aktuella</h2>
+        ${current.map((item: Case) => Task(item))}
       </div>`;
 
     rootComponent.appendChild(list);
   }
 
-  if (completedTasks.length > 0) {
+  if (archive.length > 0) {
     const list = flyg<HTMLElement>`
       <div class="tasklist tasklist--completed">
-        <h2 class="tasklist__header u-margin__bottom--2">Avslutade</h2>
-        ${completedTasks.map((item: Taskmodel) => Task(item))}
+        <h2 class="tasklist__header u-margin__bottom--2">Tidigare</h2>
+        ${archive.map((item: Case) => Task(item))}
       </div>`;
 
     rootComponent.appendChild(list);
+  }
+
+  if (current.length === 0 && archive.length === 0) {
+    const info = flyg<HTMLElement>`
+      <p>Du har inga skapade ärenden.</p>
+    `;
+
+    rootComponent.appendChild(info);
   }
 
   return rootComponent;
 };
 
 (async () => {
+  renderElement(Loader(), '[data-mypages-tasks]');
   renderElement(await main(), '[data-mypages-tasks]');
 })();
