@@ -1,43 +1,25 @@
-import { AuthenticateBankIdOtherDevice } from './controllers/AuthenticateBankIdOtherDevice';
-import { AuthenticateBankIdThisDevice } from './controllers/AuthenticateBankIdThisDevice';
-import { AuthenticationMenu } from './controllers/AuthenticationMenu';
+import { login, session } from '../../api';
+import { SESSION_ID_PARAMETER } from '../../constants';
+import { removeAuthorizationCookie, setAuthorizationCookie } from '../../utils/session';
 
-import { renderElement } from '../../utils/dom';
-import { removeAuthorizationCookie } from '../../utils/session';
+export default () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const sessionId = urlParams.get(SESSION_ID_PARAMETER);
 
-export enum AuthenticationMethods {
-  BANKID_OTHER_DEVICE,
-  BANKID_THIS_DEVICE,
-}
+  if (sessionId) {
+    session(sessionId).then((response) => {
+      setAuthorizationCookie(response.sessionToken);
+    });
+  }
 
-export const login = () => {
-  const rootComponent = document.createElement('div');
-  const actions = {
-    onNavigate: function (value: AuthenticationMethods) {
-      switch (value) {
-        case AuthenticationMethods.BANKID_THIS_DEVICE:
-          const authenticateBankIdThisDevice = AuthenticateBankIdThisDevice(this.loadInitialState.bind(actions));
-          renderElement(authenticateBankIdThisDevice, rootComponent);
-          break;
-        case AuthenticationMethods.BANKID_OTHER_DEVICE:
-          const authenticateBankIdOtherDevice = AuthenticateBankIdOtherDevice(this.loadInitialState.bind(actions));
-          renderElement(authenticateBankIdOtherDevice, rootComponent);
-          break;
-      }
-    },
-    loadInitialState: async function () {
-      const authMenuComponent = await AuthenticationMenu(this.onNavigate.bind(actions));
-      renderElement(authMenuComponent, rootComponent);
-    },
-  };
+  document.querySelector('[data-mypages-signin]')?.addEventListener('click', () => {
+    login().then(({ redirectUrl }) => {
+      location.href = redirectUrl;
+    });
+  });
 
-  // Sign out function
   document.querySelector('[data-mypages-signout]')?.addEventListener('click', () => {
     removeAuthorizationCookie();
     location.reload();
   });
-
-  actions.loadInitialState();
-
-  return rootComponent;
 };

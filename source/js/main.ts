@@ -1,4 +1,3 @@
-import { login } from './modules/login';
-import { renderElement } from './utils/dom';
+import main from './modules/login';
 
-renderElement(login(), '[data-mypages-login]');
+main();

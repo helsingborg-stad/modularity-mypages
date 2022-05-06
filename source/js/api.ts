@@ -1,3 +1,4 @@
+import { MYPAGES_URL } from './constants';
 import { htmlToElement } from './utils/dom';
 import { getAuthorizationCookie, removeAuthorizationCookie } from './utils/session';
 
@@ -116,53 +117,12 @@ const authorizationHeaders = {
 const handleError = (error: Error) => {
   switch (error.message) {
     case '401':
-      removeAuthorizationCookie();
-      location.reload();
+      /* removeAuthorizationCookie();
+      location.reload(); */
       break;
     default:
       break;
   }
-};
-
-export const getClientIp = () => {
-  //TODO: Get user IP somehow
-  return Promise.resolve('127.0.0.0');
-};
-
-export const auth = (authRequestBody: AuthRequestBody) => {
-  return fetch(`${baseURL}auth/bankid/auth`, {
-    method: 'POST',
-    body: JSON.stringify(authRequestBody),
-    headers: new Headers(defaultHeaders),
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      return response.data.attributes;
-    });
-};
-
-export const collect = (collectRequestBody: CollectRequestBody) => {
-  return fetch(`${baseURL}auth/bankid/collect`, {
-    method: 'POST',
-    body: JSON.stringify(collectRequestBody),
-    headers: new Headers(defaultHeaders),
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      return response.data.attributes;
-    });
-};
-
-export const cancel = (cancelRequestBody: CancelRequestBody) => {
-  return fetch(`${baseURL}auth/bankid/cancel`, {
-    method: 'POST',
-    body: JSON.stringify(cancelRequestBody),
-    headers: new Headers(defaultHeaders),
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      return response.data.attributes;
-    });
 };
 
 export const getUser = () => {
@@ -230,5 +190,41 @@ export const getTasks = (): Promise<{ archive: Case[]; current: Case[] }> => {
     })
     .catch((error) => {
       handleError(error);
+    });
+};
+
+export const login = () => {
+  return fetch(`${baseURL}auth/login`, {
+    method: 'POST',
+    body: JSON.stringify({ callbackUrl: window.location.origin + '/auth' }),
+    headers: new Headers(defaultHeaders),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response.data;
+    });
+};
+
+export const logout = (sessionId: string) => {
+  return fetch(`${baseURL}auth/logout`, {
+    method: 'POST',
+    body: JSON.stringify({ sessionId }),
+    headers: new Headers(defaultHeaders),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response;
+    });
+};
+
+export const session = (sessionId: string) => {
+  return fetch(`${baseURL}auth/session`, {
+    method: 'POST',
+    body: JSON.stringify({ sessionId }),
+    headers: new Headers(defaultHeaders),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response.data;
     });
 };

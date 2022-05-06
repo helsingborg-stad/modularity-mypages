@@ -26,6 +26,48 @@ class App
         // Load global scripts / styles
         add_action('wp_enqueue_scripts', array($this, 'script'));
         add_action('wp_enqueue_scripts', array($this, 'style'));
+
+        add_action('init', function() {
+            add_rewrite_endpoint('auth', EP_ROOT);
+        });
+
+        add_action('template_redirect', function() {
+            global $wp;  
+            $current_url = home_url(add_query_arg(array($_GET), $wp->request));
+            $parsedUrl = parse_url($current_url);
+            if($parsedUrl['path'] == '/auth') {
+                parse_str($parsedUrl['query'], $params);
+                $sessionId = $params['ts_session_id'];
+                echo '<script>console.log("query: ' ,  $sessionId , ' ")</script>';
+                
+                $url = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/auth/session';
+
+                $data = (object) [
+                    'sessionId' => $sessionId,
+                ];
+ 
+                $additional_headers = array(                                                                          
+                    'Accept: application/json',
+                    'x-api-key: XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b',
+                    'Content-Type: application/json'
+                );
+
+                $ch = curl_init($url);        
+
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));                                                                  
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $additional_headers); 
+
+                $server_output = curl_exec ($ch);
+
+                echo  $server_output;
+
+                http_response_code(302);
+                header('Location: http://localhost:8888/mina-sidor');
+                setcookie('session', json_encode($server_output));
+            }
+        });
     }
 
     /**
