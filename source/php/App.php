@@ -2,6 +2,9 @@
 
 namespace ModularityMyPages;
 
+const URL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/auth/session';
+const API_KEY = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
+
 use ModularityMyPages\Helper\CacheBust;
 
 class App
@@ -32,40 +35,40 @@ class App
         });
 
         add_action('template_redirect', function() {
-            global $wp;  
+            global $wp;
             $current_url = home_url(add_query_arg(array($_GET), $wp->request));
             $parsedUrl = parse_url($current_url);
             if($parsedUrl['path'] == '/auth') {
                 parse_str($parsedUrl['query'], $params);
-                $sessionId = $params['ts_session_id'];
-                $callbackUrl = $params['callbackUrl'];
-                
-                $url = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/auth/session';
-
-                $data = (object) [
-                    'sessionId' => $sessionId,
-                ];
- 
-                $additional_headers = array(                                                                          
-                    'Accept: application/json',
-                    'x-api-key: XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b',
-                    'Content-Type: application/json'
-                );
-
-                $request = curl_init($url);        
-
-                curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-                curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($data));                                                                  
-                curl_setopt($request, CURLOPT_RETURNTRANSFER, true);                                                                      
-                curl_setopt($request, CURLOPT_HTTPHEADER, $additional_headers); 
-
-                $response =  json_decode(curl_exec ($request), true);
-
-                http_response_code(302);
-                header("Location: $callbackUrl");
-                setcookie('session', $response['data']['sessionToken'], $response['data']['timestamp'], '', '', true);
-            }
+                $this->authenticate($params['ts_session_id'], $params['callbackUrl']);
+            };
         });
+    }
+
+    public function authenticate($sessionId, $callbackUrl)
+    {
+        $payload = (object) [
+            'sessionId' => $sessionId,
+        ];
+
+        $headers = array(                                                                          
+            'Accept: application/json',
+            'x-api-key:' . API_KEY,
+            'Content-Type: application/json'
+        );
+
+        $request = curl_init(URL);        
+
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+        curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($payload));                                                                  
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);                                                                      
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers); 
+
+        $response =  json_decode(curl_exec ($request), true);
+
+        http_response_code(302);
+        header("Location: $callbackUrl");
+        setcookie('session', $response['data']['sessionToken'], $response['data']['timestamp'], '', '', true);
     }
 
     /**
