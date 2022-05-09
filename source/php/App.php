@@ -38,7 +38,7 @@ class App
             if($parsedUrl['path'] == '/auth') {
                 parse_str($parsedUrl['query'], $params);
                 $sessionId = $params['ts_session_id'];
-                echo '<script>console.log("query: ' ,  $sessionId , ' ")</script>';
+                $callbackUrl = $params['callbackUrl'];
                 
                 $url = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/auth/session';
 
@@ -52,20 +52,18 @@ class App
                     'Content-Type: application/json'
                 );
 
-                $ch = curl_init($url);        
+                $request = curl_init($url);        
 
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));                                                                  
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $additional_headers); 
+                curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+                curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($data));                                                                  
+                curl_setopt($request, CURLOPT_RETURNTRANSFER, true);                                                                      
+                curl_setopt($request, CURLOPT_HTTPHEADER, $additional_headers); 
 
-                $server_output = curl_exec ($ch);
-
-                echo  $server_output;
+                $response =  json_decode(curl_exec ($request), true);
 
                 http_response_code(302);
-                header('Location: http://localhost:8888/mina-sidor');
-                setcookie('session', json_encode($server_output));
+                header("Location: $callbackUrl");
+                setcookie('session', $response['data']['sessionToken'], $response['data']['timestamp'], '', '', true);
             }
         });
     }

@@ -8,7 +8,7 @@ namespace ModularityMyPages;
  */
 class ProtectedPages
 {
-    private $authenticationCookieName   = 'myPagesAuthenticated';
+    private $authenticationCookieName   = 'session';
     private $protectedPostIDs           = null; //Cache
 
     public function __construct()

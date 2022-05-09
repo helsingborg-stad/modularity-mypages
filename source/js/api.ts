@@ -1,6 +1,6 @@
-import { MYPAGES_URL } from './constants';
+import { AUTHENTICATION_URL, MYPAGES_URL } from './constants';
 import { htmlToElement } from './utils/dom';
-import { getAuthorizationCookie, removeAuthorizationCookie } from './utils/session';
+import { getAuthorizationCookie } from './utils/session';
 
 const baseURL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
 const apiKey = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
@@ -194,9 +194,11 @@ export const getTasks = (): Promise<{ archive: Case[]; current: Case[] }> => {
 };
 
 export const login = () => {
+  const callbackUrl = new URL(window.location.origin + AUTHENTICATION_URL);
+  callbackUrl.searchParams.set('callbackUrl', window.location.origin + MYPAGES_URL);
   return fetch(`${baseURL}auth/login`, {
     method: 'POST',
-    body: JSON.stringify({ callbackUrl: window.location.origin + '/auth' }),
+    body: JSON.stringify({ callbackUrl }),
     headers: new Headers(defaultHeaders),
   })
     .then((response) => response.json())
