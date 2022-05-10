@@ -2,13 +2,44 @@
 
 namespace ModularityMyPages;
 
-const API_URL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/auth/session';
+const API_URL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
 const API_KEY = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
 const AUTH_COOKIE_NAME = 'session';
 
 class SessionHandler {
     public static function login() {
-      echo '<h1>LOGIN</h1>';
+        $callBackUrlParts = parse_url($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/auth');
+        parse_str($callBackUrlParts['query'], $params);
+        
+        if (isset($url_parts['query'])) {
+            parse_str($url_parts['query'], $params);
+        } else {
+            $params = array();
+        }
+
+        $params['callbackUrl'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/mitt-helsingborg/mina-sidor/?authenticated=true';
+        $callBackUrlParts['query'] = http_build_query($params);
+        $callBackUrl = $callBackUrlParts['scheme'] . '://' . $_SERVER['HTTP_HOST'] . $callBackUrlParts['path'] . '?' . $callBackUrlParts['query'];
+
+        $payload = (object) [
+            'callbackUrl' => $callBackUrl,
+        ];
+        $headers = array(                                                                          
+            'Accept: application/json',
+            'x-api-key:' . API_KEY,
+            'Content-Type: application/json'
+        );
+
+        $request = curl_init(API_URL . 'auth/login');        
+
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+        curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($payload));                                                                  
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);                                                                      
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers); 
+
+        $redirectUrl =  json_decode(curl_exec ($request), true)['data']['redirectUrl'];
+
+       echo "<script>location.href = '$redirectUrl';</script>";
     }
 
     public static function authenticate($sessionId, $callbackUrl) {
@@ -22,7 +53,7 @@ class SessionHandler {
             'Content-Type: application/json'
         );
 
-        $request = curl_init(API_URL);        
+        $request = curl_init(API_URL . 'auth/session');        
 
         curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
         curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($payload));                                                                  
