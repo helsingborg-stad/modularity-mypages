@@ -11,7 +11,6 @@ class App
 {
     public function __construct()
     {
-
         //Init admin 
         new Admin\Settings();
 
@@ -40,37 +39,10 @@ class App
             $parsedUrl = parse_url($current_url);
             if($parsedUrl['path'] == '/auth') {
                 parse_str($parsedUrl['query'], $params);
-                $this->authenticate($params['ts_session_id'], $params['callbackUrl']);
+                SessionHandler::authenticate($params['ts_session_id'], $params['callbackUrl']);
             };
         });
     }
-
-    public function authenticate($sessionId, $callbackUrl)
-    {
-        $payload = (object) [
-            'sessionId' => $sessionId,
-        ];
-
-        $headers = array(                                                                          
-            'Accept: application/json',
-            'x-api-key:' . API_KEY,
-            'Content-Type: application/json'
-        );
-
-        $request = curl_init(URL);        
-
-        curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-        curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($payload));                                                                  
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);                                                                      
-        curl_setopt($request, CURLOPT_HTTPHEADER, $headers); 
-
-        $response =  json_decode(curl_exec ($request), true);
-
-        http_response_code(302);
-        header("Location: $callbackUrl");
-        setcookie('session', $response['data']['sessionToken'], $response['data']['timestamp'], '', '', true);
-    }
-
     /**
      * Style - Register & adding css
      * @return void

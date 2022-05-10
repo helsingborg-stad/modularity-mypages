@@ -8,8 +8,7 @@ namespace ModularityMyPages;
  */
 class ProtectedPages
 {
-    private $authenticationCookieName   = 'session';
-    private $protectedPostIDs           = null; //Cache
+    private $protectedPostIDs = null; //Cache
 
     public function __construct()
     {
@@ -26,7 +25,7 @@ class ProtectedPages
     {
         if (in_array((int) get_queried_object_id(), $this->protectedPostIDs())) {
             $this->bypassCache();
-            if (!$this->isAuthenticated()) {
+            if (!SessionHandler::isAuthenticated()) {
                 wp_redirect(home_url('/?signedOut=true'));
                 die;
             }
@@ -70,33 +69,5 @@ class ProtectedPages
             'mypages_protected_post_ids',
             'option'
         );
-    }
-
-    /**
-     * Check and validate authentication token.
-     *
-     * @return boolean
-     */
-    private function isAuthenticated(): bool
-    {
-        if (isset($_COOKIE[$this->authenticationCookieName])) {
-            return $this->authTokenIsValid(
-                $_COOKIE[$this->authenticationCookieName]
-            );
-        }
-        return false;
-    }
-
-    /**
-     * Validate auth token string.
-     * TODO: This should validate jwt token.
-     *       State: Insecure
-     *
-     * @param string $token
-     * @return boolean
-     */
-    private function authTokenIsValid(string $token): bool
-    {
-        return true;
     }
 }
