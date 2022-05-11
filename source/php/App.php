@@ -41,6 +41,10 @@ class App
                 parse_str($parsedUrl['query'], $params);
                 SessionHandler::authenticate($params['ts_session_id'], $params['callbackUrl']);
             };
+
+            if($parsedUrl['path'] == '/mitt-helsingborg') {
+                wp_redirect(home_url('/mitt-helsingborg/mina-sidor'));
+            };
         });
     }
     /**
