@@ -38,8 +38,8 @@ class SessionHandler {
         curl_setopt($request, CURLOPT_HTTPHEADER, $headers); 
 
         $redirectUrl =  json_decode(curl_exec ($request), true)['data']['redirectUrl'];
-
-       echo "<script>location.href = '$redirectUrl';</script>";
+        
+        wp_redirect($redirectUrl);
     }
 
     public static function authenticate($sessionId, $callbackUrl) {
