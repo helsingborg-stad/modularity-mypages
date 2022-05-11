@@ -4,7 +4,7 @@ namespace ModularityMyPages;
 
 const API_URL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
 const API_KEY = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
-const AUTH_COOKIE_NAME = 'session';
+const AUTH_COOKIE_NAME = 'wordpress_mypages_session';
 
 class SessionHandler {
     public static function login() {
