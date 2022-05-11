@@ -64,7 +64,7 @@ class SessionHandler {
 
         http_response_code(302);
         header("Location: $callbackUrl");
-        setcookie('session', $response['data']['sessionToken'], $response['data']['timestamp'], '', '', true);
+        setcookie(AUTH_COOKIE_NAME, $response['data']['sessionToken'], $response['data']['timestamp'], '/');
     }
 
     /**
