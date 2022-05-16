@@ -2,6 +2,8 @@
 
 namespace ModularityMyPages;
 
+use ModularityMyPages\Helper\PageCache as PageCache;
+
 /**
  * Class ModularityMyPages
  * @package ModularityMyPages
@@ -24,32 +26,17 @@ class ProtectedPages
     public function templateRedirect() //: void
     {
         if (in_array((int) get_queried_object_id(), $this->protectedPostIDs())) {
-            $this->bypassCache();
-            if (!SessionHandler::isAuthenticated()) {
+            PageCache::bypass();
+             /* Anropa verify token primärt från backend.
+                Sätt en statisk knapp för mina sidor.
+                Vid klick på knappen, anropa verify token från javascript.
+                Om inloggad, visa en dropdown med ett logga ut alternativ.
+                Om utloggad, gå till visma IDP.
+             */
+
+            if (!Authentication::isAuthenticated()) {
                 wp_redirect(home_url('/?signedOut=true'));
                 die;
-            }
-        }
-    }
-
-    /**
-     * Bypass cache
-     *
-     * @return void
-     */
-    public function bypassCache() //: void
-    {
-        $headers = wp_get_nocache_headers();
-        if (!empty($headers) && is_array($headers)) {
-
-            //Add custom header, to inidcate what's
-            //bypassing the cache
-            $headers = array_merge($headers, [
-                'X-MyPages-Bypass-Cache' => 'true'
-            ]);
-
-            foreach ($headers as $header => $value) {
-                header($header . ": " . $value);
             }
         }
     }
