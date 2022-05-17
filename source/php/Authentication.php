@@ -66,24 +66,6 @@ class Authentication {
      */
     public static function isAuthenticated(): bool
     {
-        if (isset($_COOKIE[AUTH_COOKIE_NAME])) {
-            return self::authTokenIsValid(
-                $_COOKIE[AUTH_COOKIE_NAME]
-            );
-        }
-        return false;
-    }
-
-    /**
-     * Validate auth token string.
-     * TODO: This should validate jwt token.
-     *       State: Insecure
-     *
-     * @param string $token
-     * @return boolean
-     */
-    private static function authTokenIsValid(string $token): bool
-    {
-        return true;
+        return isset($_COOKIE[AUTH_COOKIE_NAME]);
     }
 }

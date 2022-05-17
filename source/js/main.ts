@@ -1,3 +1,1 @@
-import main from './modules/login';
-
-main();
+import './modules/login';

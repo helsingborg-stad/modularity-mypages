@@ -1,15 +1,39 @@
+import { flyg } from 'flyg';
 import { login } from '../../api';
-import { removeAuthorizationCookie } from '../../utils/session';
+import { renderElement } from '../../utils/dom';
+import { getAuthorizationCookie, removeAuthorizationCookie } from '../../utils/session';
 
-export default () => {
-  document.querySelector('[data-mypages-signin]')?.addEventListener('click', () => {
-    login().then(({ redirectUrl }) => {
-      location.href = redirectUrl;
+export const main = () => {
+  const loginButton = () => {
+    const component = flyg<HTMLElement>`
+      <button class="c-button c-button__basic c-button__basic--primary c-button--md ripple ripple--before" type="button">Mina sidor</button>
+    `;
+
+    component.addEventListener('click', () => {
+      login().then(({ redirectUrl }) => {
+        location.href = redirectUrl;
+      });
     });
-  });
 
-  document.querySelector('[data-mypages-signout]')?.addEventListener('click', () => {
-    removeAuthorizationCookie();
-    location.reload();
-  });
+    return component;
+  };
+
+  const signOutButton = () => {
+    const component = flyg<HTMLElement>`
+      <button class="c-button c-button__basic c-button__basic--primary c-button--md ripple ripple--before" type="button">Logga ut</button>
+    `;
+
+    component.addEventListener('click', () => {
+      removeAuthorizationCookie();
+      location.reload();
+    });
+
+    return component;
+  };
+
+  return getAuthorizationCookie() ? signOutButton() : loginButton();
 };
+
+(async () => {
+  renderElement(main(), '[data-mypages-login]');
+})();

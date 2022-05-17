@@ -29,7 +29,7 @@ class ProtectedPages
             PageCache::bypass();
 
             if (!Authentication::isAuthenticated()) {
-                wp_redirect(home_url('/?signedOut=true'));
+                wp_redirect(home_url());
                 die;
             }
         }
