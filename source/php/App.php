@@ -2,9 +2,6 @@
 
 namespace ModularityMyPages;
 
-const URL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/auth/session';
-const API_KEY = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
-
 use ModularityMyPages\Helper\CacheBust;
 
 class App
@@ -35,13 +32,26 @@ class App
         });
 
         add_action('template_redirect', function() {
-            global $wp;
-            $current_url = home_url(add_query_arg(array($_GET), $wp->request));
-            $parsedUrl = parse_url($current_url);
-            if($parsedUrl['path'] == '/mitt-helsingborg') {
+            if($this->getPath() == '/mitt-helsingborg') {
                 wp_redirect(home_url('/mitt-helsingborg/mina-sidor'));
             };
         });
+
+        add_filter('Municipio/Helper/Post/postObject', function($postObject) {
+            if($this->getPath() == '/mitt-helsingborg/mina-sidor') {
+                $postObject->post_title_filtered = "";
+            };
+
+            return $postObject;
+        });
+    }
+    public function getPath()
+    {
+        global $wp;
+        $current_url = home_url(add_query_arg(array($_GET), $wp->request));
+        $parsedUrl = parse_url($current_url);
+
+        return $parsedUrl['path'];
     }
     /**
      * Style - Register & adding css

@@ -1,3 +1,17 @@
-.page-id-25 article h1.c-typography__variant--h1 {
-  display: none !important;
+@keyframes ghost-loading {
+  to {
+    background-position: left;
+  }
+}
+.ghost:empty {
+  border-radius: 10px;
+  mask: linear-gradient(#000 0 0) top / 100% 100%;
+  mask-repeat: no-repeat;
+  background: linear-gradient(90deg, rgb(233, 233, 233) 40%, rgb(240, 240, 240), rgb(233, 233, 233) 60%) right/300% 100%;
+  animation: ghost-loading 1s infinite;
+}
+
+.welcome.ghost:empty {
+  width: 10em;
+  height: 1.25em;
 }

@@ -3,19 +3,18 @@ import { flyg } from 'flyg';
 import { getUser } from '../../api';
 import { renderElement } from '../../utils/dom';
 
-export const main = async () => {
-  const rootComponent = document.createElement('div');
-  const user = await getUser();
-
-  const title = flyg<HTMLElement>`
-    <h1>Hej ${user.firstName}!</h1>
+export const main = () => {
+  const component = flyg<HTMLElement>`
+    <h1 class="welcome ghost"></h1>
   `;
 
-  rootComponent.appendChild(title);
+  getUser().then(({ firstName }) => {
+    component.innerHTML = `Hej ${firstName}!`;
+  });
 
-  return rootComponent;
+  return component;
 };
 
 (async () => {
-  renderElement(await main(), '[data-mypages-welcome]');
+  renderElement(main(), '[data-mypages-welcome]');
 })();

@@ -1,21 +1,9 @@
 import { AUTHENTICATION_URL, MYPAGES_URL } from './constants';
 import { htmlToElement } from './utils/dom';
-import { getAuthorizationCookie } from './utils/session';
+import { getAuthorizationCookie, removeAuthorizationCookie } from './utils/session';
 
 const baseURL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
 const apiKey = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
-
-interface AuthRequestBody {
-  endUserIp: string;
-}
-
-interface CollectRequestBody {
-  orderRef: string;
-}
-
-interface CancelRequestBody {
-  orderRef: string;
-}
 
 interface User {
   email: string;
@@ -117,8 +105,8 @@ const authorizationHeaders = {
 const handleError = (error: Error) => {
   switch (error.message) {
     case '401':
-      /* removeAuthorizationCookie();
-      location.reload(); */
+      removeAuthorizationCookie();
+      location.reload();
       break;
     default:
       break;
