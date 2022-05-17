@@ -15,6 +15,7 @@ class App
         new Admin\Settings();
 
         //Init frontend
+        new Authentication();
         new ProtectedPages();
         new ComponentsApi();
         new ComponentsJs();
@@ -37,11 +38,6 @@ class App
             global $wp;
             $current_url = home_url(add_query_arg(array($_GET), $wp->request));
             $parsedUrl = parse_url($current_url);
-            if($parsedUrl['path'] == '/auth') {
-                parse_str($parsedUrl['query'], $params);
-                SessionHandler::authenticate($params['ts_session_id'], $params['callbackUrl']);
-            };
-
             if($parsedUrl['path'] == '/mitt-helsingborg') {
                 wp_redirect(home_url('/mitt-helsingborg/mina-sidor'));
             };
