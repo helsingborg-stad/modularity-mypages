@@ -5,9 +5,22 @@ import { getAuthorizationCookie, removeAuthorizationCookie } from './utils/sessi
 const baseURL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
 const apiKey = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
 
-interface User {
-  email: string;
+export interface Address {
+  city: string;
+  street: string;
+  postalCode: string;
+}
+
+export interface User {
   mobilePhone: string;
+  lastName: string;
+  personalNumber: string;
+  civilStatus: string;
+  createdAt: number;
+  uuid: string;
+  address: Address;
+  email: string;
+  firstName: string;
 }
 
 export interface Taskmodel {
@@ -132,7 +145,7 @@ export const getUser = () => {
     });
 };
 
-export const putUser = (putUserRequestBody: User) => {
+export const putUser = (putUserRequestBody: { email: string; mobilePhone: string }) => {
   return fetch(`${baseURL}users/me`, {
     method: 'PUT',
     body: JSON.stringify(putUserRequestBody),

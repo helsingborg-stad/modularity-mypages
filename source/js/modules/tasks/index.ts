@@ -2,7 +2,7 @@ import './main.scss';
 
 import { flyg } from 'flyg';
 import { Task } from './components/Task';
-import { Loader } from './components/Loader';
+import { Loader } from '../../common/components/Loader';
 import { Case, getTasks } from '../../api';
 import { renderElement } from '../../utils/dom';
 

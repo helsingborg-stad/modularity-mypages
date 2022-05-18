@@ -1,6 +1,6 @@
 import { flyg } from 'flyg';
 import { Case } from '../../../api';
-import { Expandable } from './Expandable';
+import { Expandable } from '../../../common/components/Expandable';
 
 const icons: Record<string, Function> = {
   ['Skol-  och fritidsförvaltningen']: () =>
