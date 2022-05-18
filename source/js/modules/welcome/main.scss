@@ -4,7 +4,7 @@
   }
 }
 .ghost:empty {
-  border-radius: 10px;
+  border-radius: 6px;
   mask: linear-gradient(#000 0 0) top / 100% 100%;
   mask-repeat: no-repeat;
   background: linear-gradient(90deg, rgb(233, 233, 233) 40%, rgb(240, 240, 240), rgb(233, 233, 233) 60%) right/300% 100%;
@@ -14,4 +14,14 @@
 .welcome.ghost:empty {
   width: 10em;
   height: 1.25em;
+}
+
+.textfield:empty {
+  width: 100%;
+  height: 3.5em;
+}
+
+.button:empty {
+  width: 10em;
+  height: 3em;
 }

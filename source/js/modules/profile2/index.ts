@@ -1,7 +1,6 @@
 import { flyg } from 'flyg';
 import { getUser, putUser, User } from '../../api';
 import { Form } from '../../common/components/Form';
-import { Loader } from '../../common/components/Loader';
 import { Notice } from '../../common/components/Notice';
 import { renderElement } from '../../utils/dom';
 import { EmailTextField } from './components/EmailTextField';
@@ -68,15 +67,27 @@ const ProfileForm = (data: User) => {
 };
 
 export const main = () => {
-  const loader = Loader();
+  const ghost = flyg<HTMLElement>`
+    <div>
+      <div class="o-grid">
+        <div class="o-grid-12">
+          <div class="ghost textfield"></div>
+        </div>
+        <div class="o-grid-12">
+          <div class="ghost textfield"></div>
+        </div>
+        <div class="o-grid-12">
+          <div class="ghost button"></div>
+        </div>
+      </div>
+    <div>
+  `;
   const component = flyg<HTMLElement>`
-    <div class="c-paper c-paper--padding-3">
-      ${loader}
-    </div>
+    <div class="c-paper c-paper--padding-3">${ghost}</div>
   `;
 
   getUser().then((data) => {
-    component.replaceChild(ProfileForm(data), loader);
+    component.replaceChild(ProfileForm(data), ghost);
   });
 
   return component;
