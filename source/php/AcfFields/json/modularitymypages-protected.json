@@ -1,39 +1,86 @@
-[{
+[
+  {
     "key": "group_624d8216a1b87",
     "title": "Protected pages",
     "fields": [
-        {
-            "key": "field_624d821e9b234",
-            "label": "Protected Pages",
-            "name": "mypages_protected_post_ids",
-            "type": "relationship",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "post_type": "",
-            "taxonomy": "",
-            "filters": [
-                "search"
-            ],
-            "elements": "",
-            "min": "",
-            "max": 10,
-            "return_format": "id"
-        }
+      {
+        "key": "field_624d821e9b234",
+        "label": "Protected Pages",
+        "name": "mypages_protected_post_ids",
+        "type": "relationship",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "post_type": "",
+        "taxonomy": "",
+        "filters": ["search"],
+        "elements": "",
+        "min": "",
+        "max": 10,
+        "return_format": "id"
+      },
+      {
+        "key": "endpoint",
+        "label": "Endpoint for Mitt Helsingborg",
+        "name": "mod_mypages_endpoint",
+        "type": "url",
+        "instructions": "You can get the endpoint from the Mitt Helsingborg Team.",
+        "required": 1,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "placeholder": ""
+      },
+      {
+        "key": "apikey",
+        "label": "Apikey for Mitt Helsingborg",
+        "name": "mod_mypages_apikey",
+        "type": "text",
+        "instructions": "You can get the endpoint from the Mitt Helsingborg Team.",
+        "required": 1,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "placeholder": ""
+      },
+      {
+        "key": "session_cookie",
+        "label": "Session cookie name for Mitt Helsingborg",
+        "name": "mod_mypages_session_cookie",
+        "type": "text",
+        "instructions": "You can get the cookie name from the Mitt Helsingborg Team.",
+        "required": 1,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "placeholder": ""
+      }
     ],
     "location": [
-        [
-            {
-                "param": "options_page",
-                "operator": "==",
-                "value": "modularity-mypages-settings"
-            }
-        ]
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "modularity-mypages-settings"
+        }
+      ]
     ],
     "menu_order": 0,
     "position": "normal",
@@ -43,5 +90,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": ""
-}]
-
+  }
+]

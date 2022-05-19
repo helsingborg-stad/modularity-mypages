@@ -1,5 +1,6 @@
 import { flyg } from 'flyg';
 import { login } from '../../api';
+import { APPROOT_LOGIN } from '../../constants';
 import { renderElement } from '../../utils/dom';
 import { getAuthorizationCookie, removeAuthorizationCookie } from '../../utils/session';
 
@@ -35,5 +36,5 @@ export const main = () => {
 };
 
 (async () => {
-  renderElement(main(), '[data-mypages-login]');
+  renderElement(main(), APPROOT_LOGIN);
 })();

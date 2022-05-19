@@ -1,10 +1,6 @@
-import { AUTHENTICATION_URL, MYPAGES_URL } from './constants';
+import { API_KEY, API_URL, AUTHENTICATION_URL, MYPAGES_URL } from './constants';
 import { htmlToElement } from './utils/dom';
 import { getAuthorizationCookie, removeAuthorizationCookie } from './utils/session';
-
-const baseURL = 'https://e0rmbakcci.execute-api.eu-north-1.amazonaws.com/dev/';
-const apiKey = 'XV1z4BJs9p8b6GliroylfQfDtsKPZuB6XItJwq5b';
-
 export interface Address {
   city: string;
   street: string;
@@ -108,7 +104,7 @@ export interface Case {
 }
 
 const defaultHeaders = {
-  'x-api-key': apiKey,
+  'x-api-key': API_KEY,
 };
 
 const authorizationHeaders = {
@@ -127,7 +123,7 @@ const handleError = (error: Error) => {
 };
 
 export const getUser = () => {
-  return fetch(`${baseURL}users/me`, {
+  return fetch(`${API_URL}users/me`, {
     method: 'GET',
     headers: new Headers({ ...defaultHeaders, ...authorizationHeaders }),
   })
@@ -146,7 +142,7 @@ export const getUser = () => {
 };
 
 export const putUser = (putUserRequestBody: { email: string; mobilePhone: string }) => {
-  return fetch(`${baseURL}users/me`, {
+  return fetch(`${API_URL}users/me`, {
     method: 'PUT',
     body: JSON.stringify(putUserRequestBody),
     headers: new Headers({ ...defaultHeaders, ...authorizationHeaders }),
@@ -176,7 +172,7 @@ export const getComponent = (component: string, options: Record<string, string>)
 };
 
 export const getTasks = (): Promise<{ archive: Case[]; current: Case[] }> => {
-  return fetch(`${baseURL}cases/list`, {
+  return fetch(`${API_URL}cases/list`, {
     method: 'GET',
     headers: new Headers({ ...defaultHeaders, ...authorizationHeaders }),
   })
@@ -197,7 +193,7 @@ export const getTasks = (): Promise<{ archive: Case[]; current: Case[] }> => {
 export const login = () => {
   const callbackUrl = new URL(window.location.origin + AUTHENTICATION_URL);
   callbackUrl.searchParams.set('callbackUrl', window.location.origin + MYPAGES_URL);
-  return fetch(`${baseURL}auth/login`, {
+  return fetch(`${API_URL}auth/login`, {
     method: 'POST',
     body: JSON.stringify({ callbackUrl }),
     headers: new Headers(defaultHeaders),
@@ -209,7 +205,7 @@ export const login = () => {
 };
 
 export const logout = (sessionId: string) => {
-  return fetch(`${baseURL}auth/logout`, {
+  return fetch(`${API_URL}auth/logout`, {
     method: 'POST',
     body: JSON.stringify({ sessionId }),
     headers: new Headers(defaultHeaders),
@@ -221,7 +217,7 @@ export const logout = (sessionId: string) => {
 };
 
 export const session = (sessionId: string) => {
-  return fetch(`${baseURL}auth/session`, {
+  return fetch(`${API_URL}auth/session`, {
     method: 'POST',
     body: JSON.stringify({ sessionId }),
     headers: new Headers(defaultHeaders),

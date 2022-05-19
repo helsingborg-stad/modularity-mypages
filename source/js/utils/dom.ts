@@ -43,3 +43,8 @@ export const showElement = (element: HTMLElement) => {
 export const hideElement = (element: HTMLElement) => {
   element.classList.add('u-display--none');
 };
+
+export const getAttributes = (selector: string, keys: string[]): string[] => {
+  const attributes = document.querySelector(selector)?.attributes;
+  return keys.map((key) => attributes?.getNamedItem(key)?.nodeValue ?? '');
+};

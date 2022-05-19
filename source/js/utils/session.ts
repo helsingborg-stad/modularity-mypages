@@ -1,9 +1,10 @@
 import Cookies from 'js-cookie';
+import { SESSION_COOKIE } from '../constants';
 
 export const removeAuthorizationCookie = () => {
-  Cookies.remove('wordpress_mypages_session');
+  Cookies.remove(SESSION_COOKIE);
 };
 
 export const getAuthorizationCookie = () => {
-  return Cookies.get('wordpress_mypages_session');
+  return Cookies.get(SESSION_COOKIE);
 };

@@ -2,6 +2,7 @@ import './main.scss';
 import { flyg } from 'flyg';
 import { getUser } from '../../api';
 import { renderElement } from '../../utils/dom';
+import { APPROOT_WELCOME } from '../../constants';
 
 export const main = () => {
   const component = flyg<HTMLElement>`
@@ -16,5 +17,5 @@ export const main = () => {
 };
 
 (async () => {
-  renderElement(main(), '[data-mypages-welcome]');
+  renderElement(main(), APPROOT_WELCOME);
 })();
