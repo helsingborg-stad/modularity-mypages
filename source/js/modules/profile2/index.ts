@@ -1,11 +1,12 @@
 import { flyg } from 'flyg';
-import { getUser, putUser, User } from '../../api';
 import { Form } from '../../common/components/Form';
 import { Notice } from '../../common/components/Notice';
 import { renderElement } from '../../utils/dom';
 import { EmailTextField } from './components/EmailTextField';
 import { MobileTextField } from './components/MobileTextField';
 import { SubmitButton } from './components/SubmitButton';
+import { getUser, putUser } from '../../services/api';
+import { User } from '../../services/api/types';
 
 const ProfileForm = (data: User) => {
   let inFlight = false;

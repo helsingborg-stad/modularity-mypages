@@ -3,9 +3,10 @@ import './main.scss';
 import { flyg } from 'flyg';
 import { Task } from './components/Task';
 import { Loader } from '../../common/components/Loader';
-import { Case, getTasks } from '../../api';
 import { renderElement } from '../../utils/dom';
 import { APPROOT_TASKS } from '../../constants';
+import { getTasks } from '../../services/api';
+import { Case } from '../../services/api/types';
 
 export const main = async () => {
   const rootComponent = document.createElement('div');

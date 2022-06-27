@@ -1,6 +1,6 @@
 import { flyg } from 'flyg';
-import { login } from '../../api';
 import { APPROOT_LOGIN } from '../../constants';
+import { login } from '../../services/api';
 import { renderElement } from '../../utils/dom';
 import { getAuthorizationCookie, removeAuthorizationCookie } from '../../utils/session';
 

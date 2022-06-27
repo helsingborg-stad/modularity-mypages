@@ -1,7 +1,7 @@
+import { getUser, putUser } from '../../../services/api';
 import { domElements, main } from '../profile';
-import { getUser, putUser } from '../../../api';
 
-jest.mock('../../../api');
+jest.mock('../../../services/api');
 
 const mockedGetUser = jest.mocked(getUser);
 const mockedPutUser = jest.mocked(putUser);

@@ -1,4 +1,4 @@
-import { getUser, putUser } from '../../api';
+import { getUser, putUser } from '../../services/api';
 import { getInputValue, hideElement, setInputValue, showElement } from '../../utils/dom';
 
 enum DomSelectors {
