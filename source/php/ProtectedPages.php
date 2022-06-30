@@ -25,12 +25,16 @@ class ProtectedPages
      */
     public function templateRedirect() //: void
     {
-        if (in_array((int) get_queried_object_id(), $this->protectedPostIDs())) {
-            PageCache::bypass();
+        $objectId = (int) get_queried_object_id();
 
-            if (!Authentication::isAuthenticated()) {
-                wp_redirect(home_url());
-                die;
+        if (is_numeric($objectId) && get_post_status($objectId) !== false) {
+            if (in_array($objectId, $this->protectedPostIDs())) {
+                PageCache::bypass();
+
+                if (!Authentication::isAuthenticated()) {
+                    wp_redirect(home_url());
+                    die;
+                }
             }
         }
     }
