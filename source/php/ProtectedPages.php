@@ -25,7 +25,7 @@ class ProtectedPages
      */
     public function templateRedirect() //: void
     {
-        $objectId = (int) get_queried_object_id();
+        $objectId = get_queried_object_id();
 
         if (is_numeric($objectId) && get_post_status($objectId) !== false) {
             if (in_array($objectId, $this->protectedPostIDs())) {
