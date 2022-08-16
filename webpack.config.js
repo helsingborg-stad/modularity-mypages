@@ -16,7 +16,7 @@ module.exports = {
    * Add your entry files here
    */
   entry: {
-    'js/modularity-mypages': './source/js/main.ts',
+    'js/modularity-mypages': './source/js/main.tsx',
     'js/modularity-mypages-welcome': './source/js/modules/welcome/index.ts',
     'js/modularity-mypages-profile': './source/js/modules/profile/index.ts',
     'js/modularity-mypages-profile2': './source/js/modules/profile2/index.ts',
@@ -68,7 +68,7 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       },
     ],

@@ -26,10 +26,16 @@
     "not dead"
   ],
   "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
     "@types/jest": "^27.4.1",
     "@types/js-cookie": "^3.0.1",
     "@types/qrcode": "^1.4.2",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
     "autoprefixer": "^10.4.2",
+    "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.6.0",
@@ -64,7 +70,9 @@
   "dependencies": {
     "flyg": "^0.0.8",
     "js-cookie": "^3.0.1",
-    "qrcode": "^1.5.0"
+    "qrcode": "^1.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "jest": {
     "preset": "ts-jest",
