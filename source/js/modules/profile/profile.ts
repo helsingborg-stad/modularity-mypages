@@ -28,7 +28,7 @@ export const main = async (dom: Document) => {
   const { form, loader, submitedNotice, submitButton, emailInput, phoneInput } = domElements(dom);
 
   const loadUserData = async () => {
-    user = await getUser();
+    user = (await getUser()) as unknown as Record<string, string>;
 
     setInputValue(emailInput, user.email);
     setInputValue(phoneInput, user.mobilePhone);

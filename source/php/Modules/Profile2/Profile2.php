@@ -62,7 +62,6 @@ class Profile2 extends \Modularity\Module
      */
     public function style()
     {
-        return;
         //Register custom css
         wp_register_style(
             'modularity-mypages-profile2',

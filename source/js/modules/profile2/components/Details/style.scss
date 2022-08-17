@@ -1,0 +1,23 @@
+.details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+  &__icon {
+    width: 6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      font-size: 4em;
+      color: var(--color-background-complementary);
+    }
+  }
+  &__name {
+    font-size: 1.6em;
+    font-weight: bold;
+  }
+  &__item {
+    font-weight: bold;
+    color: dimgrey;
+  }
+}

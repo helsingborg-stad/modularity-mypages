@@ -4,16 +4,28 @@ export interface Address {
   postalCode: string;
 }
 
+export type ContactType = 'EMAIL' | 'PHONE';
+
+export type ContactCategory = 'WORK' | 'PRIVATE';
+
+export interface Contact {
+  id: string;
+  type: ContactType;
+  category: ContactCategory;
+  primary: boolean;
+  value: string;
+  verified: boolean;
+}
+
 export interface User {
-  mobilePhone: string;
   lastName: string;
   personalNumber: string;
   civilStatus: string;
   createdAt: number;
   uuid: string;
   address: Address;
-  email: string;
   firstName: string;
+  contact: Contact[];
 }
 
 export interface Taskmodel {

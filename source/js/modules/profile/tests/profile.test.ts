@@ -19,10 +19,10 @@ beforeEach(() => {
     </form>
   `;
 
-  mockedGetUser.mockResolvedValue({
+  /* mockedGetUser.mockResolvedValue({
     email: 'email@email.com',
     mobilePhone: '123',
-  });
+  }); */
   mockedPutUser.mockResolvedValue({});
 });
 

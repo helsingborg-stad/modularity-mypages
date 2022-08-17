@@ -1,0 +1,35 @@
+.toggle-form {
+  margin-bottom: 2em;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__header-content {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    width: 6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      font-size: 2em;
+      color: var(--color-background-complementary);
+      line-height: unset;
+    }
+  }
+
+  &__primary {
+    font-size: 1em;
+    font-weight: bold;
+    color: dimgrey;
+  }
+
+  &__body {
+    padding-left: 6em;
+  }
+}
