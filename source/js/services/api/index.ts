@@ -25,7 +25,7 @@ const userMock: User = {
       type: 'PHONE',
       category: 'PRIVATE',
       primary: true,
-      value: '+46000000000',
+      value: '0798182818',
       verified: true,
     },
     {
@@ -41,7 +41,7 @@ const userMock: User = {
       type: 'PHONE',
       category: 'WORK',
       primary: false,
-      value: '+46666666666',
+      value: '0798182866',
       verified: true,
     },
   ],

@@ -19,3 +19,7 @@ export function isSet<T>(value: T | undefined | null): value is T {
 export function isEmpty(value?: string): boolean {
   return !isSet(value) || value === '';
 }
+
+export function phoneNumberFormatter(str: string): string {
+  return str.replace(/^(\d{3})(\d{3})(\d{2})(\d{2})$/, '$1-$2 $3 $4');
+}

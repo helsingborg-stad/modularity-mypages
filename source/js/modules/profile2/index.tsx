@@ -5,7 +5,7 @@ import { getUser } from '../../services/api';
 import { User } from '../../services/api/types';
 import { AddList, Details, Loader, ToggleForm } from './components';
 import { useAddList } from './hooks/useAddList';
-import { getContactDetailsByType, getPrimaryContact } from './utils';
+import { getContactDetailsByType, getPrimaryContact, phoneNumberFormatter } from './utils';
 
 interface ProfileState {
   loading: boolean;
@@ -59,6 +59,11 @@ const Profile = () => {
     }));
   };
 
+  const getPrimaryPhoneNumber = () => {
+    const value = getPrimaryContact(getContactDetailsByType(state.user.contact, 'PHONE'))?.value;
+    return value ? phoneNumberFormatter(value) : undefined;
+  };
+
   return (
     <div>
       {state.loading ? (
@@ -98,9 +103,7 @@ const Profile = () => {
             onToggle={(open: boolean) => {
               phoneAddList.showAddControls(!open);
             }}
-            text={
-              getPrimaryContact(getContactDetailsByType(state.user.contact, 'PHONE'))?.value || 'Telefonnummer saknas'
-            }>
+            text={getPrimaryPhoneNumber() || 'Telefonnummer saknas'}>
             <AddList
               addList={phoneAddList}
               type="PHONE"
