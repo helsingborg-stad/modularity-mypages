@@ -11,10 +11,12 @@ export const AddList = ({
   type,
   addList,
   textFieldAttrs,
+  formatter,
 }: {
   type: ContactType;
   addList: UseAddList;
   textFieldAttrs?: Record<string, string | boolean>;
+  formatter?: (value: string) => string;
 }) => {
   const onRemove = (item: Contact) => {
     addList.remove(item);
@@ -48,7 +50,13 @@ export const AddList = ({
       {addList.contact?.map((item, index) => {
         return (
           <div key={index} className="add-list__row">
-            <Radiobutton id={item.id} value={item.value} checked={item.primary} onChange={addList.onPrimaryChanged} />
+            <Radiobutton
+              id={item.id}
+              value={item.value}
+              checked={item.primary}
+              formatter={formatter}
+              onChange={addList.onPrimaryChanged}
+            />
             <button
               onClick={() => onRemove(item)}
               className="c-button c-button__basic c-button__basic--primary c-button--md"

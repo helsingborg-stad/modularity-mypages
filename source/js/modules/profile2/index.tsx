@@ -105,6 +105,7 @@ const Profile = () => {
             }}
             text={getPrimaryPhoneNumber() || 'Telefonnummer saknas'}>
             <AddList
+              formatter={phoneNumberFormatter}
               addList={phoneAddList}
               type="PHONE"
               textFieldAttrs={{
