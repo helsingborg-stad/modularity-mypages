@@ -5,7 +5,7 @@ import { getUser } from '../../services/api';
 import { User } from '../../services/api/types';
 import { AddList, Details, Loader, ToggleForm } from './components';
 import { useAddList } from './hooks/useAddList';
-import { getContactDetailsByType, getPrimaryContact, phoneNumberFormatter } from './utils';
+import { getContactDetailsByType, getPrimaryContact, personalNumberFormatter, phoneNumberFormatter } from './utils';
 
 interface ProfileState {
   loading: boolean;
@@ -71,7 +71,7 @@ const Profile = () => {
       ) : (
         <div>
           <Details
-            personalNumber={state.user.personalNumber}
+            personalNumber={personalNumberFormatter(state.user.personalNumber)}
             name={`${state.user.firstName} ${state.user.lastName}`}
             address={`${state.user.address.street}, ${state.user.address.postalCode} ${state.user.address.city}`}
           />

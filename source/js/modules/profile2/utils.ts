@@ -23,3 +23,7 @@ export function isEmpty(value?: string): boolean {
 export function phoneNumberFormatter(str: string): string {
   return str.replace(/^(\d{3})(\d{3})(\d{2})(\d{2})$/, '$1-$2 $3 $4');
 }
+
+export function personalNumberFormatter(str: string): string {
+  return str.replace(/^(\d{8})(\d{4})$/, '$1-$2');
+}
