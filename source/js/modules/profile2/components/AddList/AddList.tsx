@@ -64,21 +64,23 @@ export const AddList = ({
           </div>
         );
       })}
-      {addList.addControls ? (
-        AddForm
-      ) : (
-        <button
-          className="add-list__toggle-button c-button c-button__basic c-button__basic--primary c-button--md"
-          type="button"
-          onClick={() => addList.showAddControls(true)}>
-          <span className="c-button__label">
-            <i className="c-icon c-icon--size-md material-icons" translate="no" role="img">
-              add
-            </i>
-            <span className="c-button__label-text c-button__label-text--reverse">Lägg till</span>
-          </span>
-        </button>
-      )}
+      <div className="add-list__form">
+        <i className="c-icon c-icon--size-md material-icons u-margin__right--1" translate="no" role="img">
+          add_circle
+        </i>
+        {addList.addControls ? (
+          AddForm
+        ) : (
+          <button
+            className="add-list__toggle-button c-button c-button__basic c-button__basic--primary c-button--md"
+            type="button"
+            onClick={() => addList.showAddControls(true)}>
+            <span className="c-button__label">
+              <span className="c-button__label-text c-button__label-text--reverse">Lägg till</span>
+            </span>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
