@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { APPROOT_PROFILE } from '../../constants';
+import { APPROOT_PROFILE_3 } from '../../constants';
 import { getProfile } from '../../services/api';
 import { Profile } from '../../services/api/types';
 import { AddList, Details, Loader, ToggleForm } from './components';
@@ -121,4 +121,4 @@ const App = () => {
   );
 };
 
-createRoot(document.querySelector(APPROOT_PROFILE) as Element).render(<App />);
+createRoot(document.querySelector(APPROOT_PROFILE_3) as Element).render(<App />);

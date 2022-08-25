@@ -7,6 +7,7 @@ import { MobileTextField } from './components/MobileTextField';
 import { SubmitButton } from './components/SubmitButton';
 import { getUser, putUser } from '../../services/api';
 import { User } from '../../services/api/types';
+import { APPROOT_PROFILE_2 } from '../../constants';
 
 const ProfileForm = (data: User) => {
   let inFlight = false;
@@ -95,5 +96,5 @@ export const main = () => {
 };
 
 (() => {
-  renderElement(main(), '[data-mypages-profile]');
+  renderElement(main(), APPROOT_PROFILE_2);
 })();
