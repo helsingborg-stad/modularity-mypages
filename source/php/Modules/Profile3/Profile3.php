@@ -1,6 +1,6 @@
 <?php
 
-namespace ModularityMyPages\Modules\Profile2;
+namespace ModularityMyPages\Modules\Profile3;
 
 use ModularityMyPages\Helper\CacheBust;
 
@@ -8,16 +8,16 @@ use ModularityMyPages\Helper\CacheBust;
  * Class ModularityMyPages
  * @package ModularityMyPages\Module
  */
-class Profile2 extends \Modularity\Module
+class Profile3 extends \Modularity\Module
 {
-    public $slug = 'mod-mypages-profile2';
+    public $slug = 'mod-mypages-profile3';
     public $supports = array();
 
     public function init()
     {
-        $this->nameSingular = __("My Pages: Profile2", 'modularity-mypages');
-        $this->namePlural = __("My Pages: Profile2", 'modularity-mypages');
-        $this->description = __("My pages modularity module, Profile2 page.", 'modularity-mypages');
+        $this->nameSingular = __("My Pages: Profile3", 'modularity-mypages');
+        $this->namePlural = __("My Pages: Profile3", 'modularity-mypages');
+        $this->description = __("My pages modularity module, Profile3 page.", 'modularity-mypages');
     }
 
     /**
@@ -53,7 +53,7 @@ class Profile2 extends \Modularity\Module
      */
     public function template(): string
     {
-        return "profile2.blade.php";
+        return "profile3.blade.php";
     }
 
     /**
@@ -64,14 +64,14 @@ class Profile2 extends \Modularity\Module
     {
         //Register custom css
         wp_register_style(
-            'modularity-mypages-profile2',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-profile2.css'),
+            'modularity-mypages-profile3',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-profile3.css'),
             null,
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_style('modularity-mypages-profile2');
+        wp_enqueue_style('modularity-mypages-profile3');
     }
 
     /**
@@ -87,14 +87,14 @@ class Profile2 extends \Modularity\Module
 
         //Register custom css
         wp_register_script(
-            'modularity-mypages-profile2',
-            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-profile2.js'),
+            'modularity-mypages-profile3',
+            MODULARITY_MY_PAGES_URL . '/dist/' . CacheBust::name('js/modularity-mypages-profile3.js'),
             ['modularity-mypages'],
             '1.0.0'
         );
 
         //Enqueue
-        wp_enqueue_script('modularity-mypages-profile2');
+        wp_enqueue_script('modularity-mypages-profile3');
     }
 
     /**

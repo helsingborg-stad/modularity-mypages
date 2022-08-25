@@ -108,7 +108,7 @@ class App
     public function registerModule()
     {
         if (function_exists('modularity_register_module')) {
-            foreach (['Profile', 'Profile2', 'Welcome', 'Service', 'Tasks'] as $module) {
+            foreach (['Profile', 'Profile2', 'Profile3', 'Welcome', 'Service', 'Tasks'] as $module) {
                 modularity_register_module(
                     MODULARITY_MY_PAGES_MODULE_PATH . "/" . $module,
                     $module

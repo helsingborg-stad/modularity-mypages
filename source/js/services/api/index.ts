@@ -1,7 +1,51 @@
+import { getAuthorizationCookie, removeAuthorizationCookie } from '../../utils/session';
 import { API_KEY, API_URL, AUTHENTICATION_URL, MYPAGES_URL } from '../../constants';
 import { htmlToElement } from '../../utils/dom';
-import { getAuthorizationCookie, removeAuthorizationCookie } from '../../utils/session';
-import { Case } from './types';
+import { Case, Profile } from './types';
+
+const userMock: Profile = {
+  lastName: 'Walldèn',
+  personalNumber: '193504049135',
+  civilStatus: 'OG',
+  createdAt: 1635423159911,
+  uuid: 'DE35BE68-D5C4-4467-BE46-BA8F5A5B5B71',
+  address: { city: 'STOCKHOLM', street: 'PACKHUSGRÄND 2', postalCode: '11130' },
+  firstName: 'Filip',
+  contact: [
+    {
+      id: '6434345',
+      type: 'EMAIL',
+      category: 'PRIVATE',
+      primary: true,
+      value: 'Filip@private.se',
+      verified: true,
+    },
+    {
+      id: '23452351',
+      type: 'PHONE',
+      category: 'PRIVATE',
+      primary: true,
+      value: '0798182818',
+      verified: true,
+    },
+    {
+      id: '967832',
+      type: 'EMAIL',
+      category: 'WORK',
+      primary: false,
+      value: 'Filip@work.se',
+      verified: true,
+    },
+    {
+      id: '6585673',
+      type: 'PHONE',
+      category: 'WORK',
+      primary: false,
+      value: '0798182866',
+      verified: true,
+    },
+  ],
+};
 
 const defaultHeaders = {
   'x-api-key': API_KEY,
@@ -20,6 +64,10 @@ const handleError = (error: Error) => {
     default:
       break;
   }
+};
+
+export const getProfile = () => {
+  return Promise.resolve(userMock);
 };
 
 export const getUser = () => {
